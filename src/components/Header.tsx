@@ -3,19 +3,6 @@ interface HeaderProps {
   onHistoryClick: () => void
 }
 
-function LogoIcon() {
-  return (
-    <svg width="42" height="42" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="4" y="22" width="56" height="36" rx="4" fill="#dc2626"/>
-      <path d="M4 28 L32 44 L60 28" stroke="#b91c1c" strokeWidth="2" fill="none"/>
-      <path d="M36 6 L24 32 L33 32 L28 54 L44 26 L35 26 Z" fill="white"/>
-      <line x1="44" y1="4"  x2="47" y2="10" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round"/>
-      <line x1="51" y1="8"  x2="48" y2="13" stroke="#f87171" strokeWidth="2"   strokeLinecap="round"/>
-      <line x1="54" y1="16" x2="49" y2="17" stroke="#f87171" strokeWidth="2"   strokeLinecap="round"/>
-    </svg>
-  )
-}
-
 function SparkleIcon() {
   return (
     <svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +29,13 @@ export default function Header({ onSettingsClick, onHistoryClick }: HeaderProps)
 
         {/* Logo + brand name */}
         <div className="flex items-center gap-3">
-          <LogoIcon />
+          <img
+            src="/logo-icon.png"
+            alt="Ephpha logo"
+            width={40}
+            height={40}
+            style={{ objectFit: 'contain' }}
+          />
           <span className="font-bold tracking-tight leading-none" style={{ fontSize: '20px' }}>
             <span style={{ color: '#1c1917' }}>Eph</span>
             <span style={{ color: '#f97316' }}>pha</span>
