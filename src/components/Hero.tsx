@@ -11,9 +11,9 @@ function BoltBadge() {
   return (
     <span style={{
       display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-      background: 'white', borderRadius: '8px', width: '32px', height: '32px', flexShrink: 0,
+      background: 'white', borderRadius: '8px', width: '28px', height: '28px', flexShrink: 0,
     }}>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="#dc2626" xmlns="http://www.w3.org/2000/svg">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="#dc2626" xmlns="http://www.w3.org/2000/svg">
         <path d="M13 2L4.5 13.5H11L10 22L19.5 10.5H13L13 2Z"/>
       </svg>
     </span>
@@ -24,9 +24,9 @@ function SpinnerBadge() {
   return (
     <span style={{
       display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-      background: 'white', borderRadius: '8px', width: '32px', height: '32px', flexShrink: 0,
+      background: 'white', borderRadius: '8px', width: '28px', height: '28px', flexShrink: 0,
     }}>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
         style={{ animation: 'spin 0.8s linear infinite', transformOrigin: 'center' }}>
         <circle cx="12" cy="12" r="9" stroke="#dc2626" strokeWidth="3"
           strokeDasharray="28 14" strokeLinecap="round"/>
@@ -50,14 +50,14 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
     : { backgroundColor: '#c4ccd6', color: '#94a3b8', cursor: hasText ? 'wait' : 'not-allowed' }
 
   return (
-    <section className="py-14 px-4">
-      <div className="max-w-2xl mx-auto">
+    <section className="py-10 sm:py-14 px-4">
+      <div className="max-w-2xl mx-auto w-full">
 
-        {/* Headline — single red→orange gradient flowing left to right across all text */}
+        {/* Headline */}
         <h1
           className="text-center font-extrabold leading-tight tracking-tight mb-3"
           style={{
-            fontSize: 'clamp(2rem, 5vw, 3rem)',
+            fontSize: 'clamp(1.75rem, 6vw, 3rem)',
             background: 'linear-gradient(to right, #dc2626 0%, #c2410c 35%, #ea580c 60%, #f97316 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
@@ -68,16 +68,15 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
         </h1>
 
         {/* Subtitle */}
-        <p className="text-center mb-8" style={{ color: '#78716c', fontSize: '15px' }}>
+        <p className="text-center mb-6 sm:mb-8 px-2" style={{ color: '#78716c', fontSize: '15px' }}>
           Ephpha gives your emails the edge they need to stand out in any inbox
         </p>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full">
 
           {/* Textarea with character counter */}
-          {/* FIX 3: border always neutral grey — red only on error state */}
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: 'relative' }} className="w-full">
             <textarea
               value={subject}
               onChange={e => onSubjectChange(e.target.value.slice(0, MAX_LEN))}
@@ -86,27 +85,24 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
               disabled={isAnalyzing}
               style={{
                 width: '100%',
-                padding: '16px 20px 32px 20px',
+                padding: '14px 16px 32px 16px',
                 borderRadius: '16px',
                 border: `2px solid ${error ? '#dc2626' : '#e7e5e4'}`,
                 backgroundColor: 'white',
-                fontSize: '15px',
+                fontSize: '16px', /* 16px prevents iOS zoom on focus */
                 color: '#1c1917',
                 resize: 'none',
                 outline: 'none',
                 fontFamily: 'inherit',
                 transition: 'border-color 0.15s',
                 lineHeight: '1.5',
+                boxSizing: 'border-box',
               }}
-              onFocus={e => {
-                if (!error) e.currentTarget.style.borderColor = '#d1d5db'
-              }}
-              onBlur={e => {
-                if (!error) e.currentTarget.style.borderColor = '#e7e5e4'
-              }}
+              onFocus={e => { if (!error) e.currentTarget.style.borderColor = '#d1d5db' }}
+              onBlur={e => { if (!error) e.currentTarget.style.borderColor = '#e7e5e4' }}
             />
             <span style={{
-              position: 'absolute', bottom: '10px', right: '16px',
+              position: 'absolute', bottom: '10px', right: '14px',
               fontSize: '13px', fontWeight: 500,
               color: hasText ? '#f97316' : '#a8a29e',
               pointerEvents: 'none',
@@ -119,7 +115,7 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
             <p style={{ color: '#dc2626', fontSize: '14px', paddingLeft: '4px' }}>{error}</p>
           )}
 
-          {/* Analyze button */}
+          {/* Analyze button — min-h-[52px] for comfortable touch target */}
           <button
             type="submit"
             disabled={!hasText || isAnalyzing}
@@ -130,7 +126,6 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
               alignItems: 'center',
               justifyContent: 'center',
               gap: '10px',
-              padding: '14px 20px',
               borderRadius: '16px',
               border: 'none',
               fontSize: '16px',
@@ -138,6 +133,7 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
               fontFamily: 'inherit',
               transition: 'opacity 0.15s',
             }}
+            className="min-h-[52px] px-4"
           >
             {isAnalyzing ? <SpinnerBadge /> : <BoltBadge />}
             {isAnalyzing ? (loadingMessage || 'Analyzing...') : 'Analyze'}
