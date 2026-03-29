@@ -29,23 +29,47 @@ export default function Header({ onSettingsClick, onHistoryClick }: HeaderProps)
 
         {/* Logo + brand name */}
         <div className="flex items-center gap-3">
-          {/* FIX 1: no background/box — transparent, larger size */}
+          {/*
+            mix-blend-mode: multiply  → blends white/grey PNG areas into the white header,
+            making the background completely invisible while preserving the red/orange logo colors.
+          */}
           <img
             src="/logo-icon.png"
             alt="Ephpha logo"
-            width={56}
-            height={56}
+            width={72}
+            height={72}
             style={{
               objectFit: 'contain',
-              background: 'transparent',
               display: 'block',
+              mixBlendMode: 'multiply',
             }}
           />
-          <span className="font-bold tracking-tight leading-none" style={{ fontSize: '20px' }}>
-            <span style={{ color: '#1c1917' }}>Eph</span>
-            <span style={{ color: '#f97316' }}>pha</span>
-            <span style={{ color: '#a8a29e', fontSize: '0.78em', fontWeight: 500 }}>.ai</span>
-          </span>
+
+          {/* "Ephpha" as a single red→orange gradient, ".ai" stays grey */}
+          <div className="leading-none">
+            <span
+              className="font-extrabold tracking-tight"
+              style={{
+                fontSize: '22px',
+                background: 'linear-gradient(to right, #dc2626 0%, #f97316 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              Ephpha
+            </span>
+            <span
+              style={{
+                fontSize: '14px',
+                fontWeight: 500,
+                color: '#a8a29e',
+                marginLeft: '1px',
+              }}
+            >
+              .ai
+            </span>
+          </div>
         </div>
 
         {/* Nav right: sparkle tagline + gear */}
