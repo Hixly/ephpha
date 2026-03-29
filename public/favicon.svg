@@ -1,8 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect x="4" y="22" width="56" height="36" rx="4" fill="#dc2626"/>
-  <path d="M4 28 L32 44 L60 28" stroke="#b91c1c" strokeWidth="2" fill="none"/>
-  <path d="M36 6 L24 32 L33 32 L28 54 L44 26 L35 26 Z" fill="white"/>
-  <line x1="44" y1="4"  x2="47" y2="10" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round"/>
-  <line x1="51" y1="8"  x2="48" y2="13" stroke="#f87171" strokeWidth="2"   strokeLinecap="round"/>
-  <line x1="54" y1="16" x2="49" y2="17" stroke="#f87171" strokeWidth="2"   strokeLinecap="round"/>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#dc2626"/>
+      <stop offset="100%" stop-color="#f97316"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded square background -->
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+
+  <!-- Bold white lightning bolt, centered -->
+  <path d="M36 5 L19 34 H30 L28 59 L45 30 H34 Z" fill="white"/>
 </svg>
