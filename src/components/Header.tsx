@@ -5,8 +5,8 @@ interface HeaderProps {
 
 function SparkleIcon() {
   return (
-    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8 0 L9.2 5.8 L15 7 L9.2 8.2 L8 14 L6.8 8.2 L1 7 L6.8 5.8 Z" fill="#dc2626"/>
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 0 L9.2 5.8 L15 7 L9.2 8.2 L8 14 L6.8 8.2 L1 7 L6.8 5.8 Z" fill="white"/>
     </svg>
   )
 }
@@ -62,12 +62,17 @@ export default function Header({ onSettingsClick, onHistoryClick }: HeaderProps)
         <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={onSettingsClick}
-            className="flex items-center gap-1.5 font-medium transition-opacity hover:opacity-75 min-h-[44px] px-2"
-            style={{ color: '#f97316' }}
+            className="hidden sm:flex items-center gap-1.5 font-bold text-sm text-white bg-gradient-to-r from-red-700 to-amber-500 rounded-full min-h-[40px] px-4 transition-all hover:scale-105 hover:brightness-110 active:scale-95"
           >
             <SparkleIcon />
-            {/* Hide label on mobile, show on sm+ */}
-            <span className="hidden sm:inline text-sm">Unlock your email opens</span>
+            Unlock your email opens
+          </button>
+          {/* Mobile: show just the sparkle icon */}
+          <button
+            onClick={onSettingsClick}
+            className="sm:hidden flex items-center justify-center min-h-[44px] min-w-[44px] rounded-full bg-gradient-to-r from-red-700 to-amber-500 transition-all hover:brightness-110 active:scale-95"
+          >
+            <SparkleIcon />
           </button>
           <button
             onClick={onHistoryClick}
