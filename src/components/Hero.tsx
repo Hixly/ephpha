@@ -70,6 +70,7 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
 
           {/* Textarea with character counter */}
+          {/* FIX 3: border always neutral grey — red only on error state */}
           <div style={{ position: 'relative' }}>
             <textarea
               value={subject}
@@ -81,7 +82,7 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
                 width: '100%',
                 padding: '16px 20px 32px 20px',
                 borderRadius: '16px',
-                border: `2px solid ${hasText ? '#dc2626' : '#e7e5e4'}`,
+                border: `2px solid ${error ? '#dc2626' : '#e7e5e4'}`,
                 backgroundColor: 'white',
                 fontSize: '15px',
                 color: '#1c1917',
@@ -91,8 +92,12 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
                 transition: 'border-color 0.15s',
                 lineHeight: '1.5',
               }}
-              onFocus={e => { if (!hasText) e.currentTarget.style.borderColor = '#fca5a5' }}
-              onBlur={e => { if (!hasText) e.currentTarget.style.borderColor = '#e7e5e4' }}
+              onFocus={e => {
+                if (!error) e.currentTarget.style.borderColor = '#d1d5db'
+              }}
+              onBlur={e => {
+                if (!error) e.currentTarget.style.borderColor = '#e7e5e4'
+              }}
             />
             <span style={{
               position: 'absolute', bottom: '10px', right: '16px',
