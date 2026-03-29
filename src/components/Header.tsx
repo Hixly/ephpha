@@ -12,17 +12,11 @@ export default function Header({ onSettingsClick, onHistoryClick }: HeaderProps)
           <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium">beta</span>
         </div>
         <div className="flex items-center gap-2">
-          <button
-            onClick={onHistoryClick}
-            className="text-stone-500 hover:text-stone-800 px-3 py-1.5 rounded-lg hover:bg-stone-100 text-sm font-medium transition-colors"
-          >
+          <button onClick={onHistoryClick} className="text-stone-500 hover:text-stone-800 px-3 py-1.5 rounded-lg hover:bg-stone-100 text-sm font-medium transition-colors">
             History
           </button>
-          <button
-            onClick={onSettingsClick}
-            className="text-stone-500 hover:text-stone-800 px-3 py-1.5 rounded-lg hover:bg-stone-100 text-sm font-medium transition-colors"
-          >
-            ⚙️ Pro
+          <button onClick={onSettingsClick} className="text-stone-500 hover:text-stone-800 px-3 py-1.5 rounded-lg hover:bg-stone-100 text-sm font-medium transition-colors">
+            Pro
           </button>
         </div>
       </div>
