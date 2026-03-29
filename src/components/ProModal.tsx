@@ -166,12 +166,36 @@ function OriginTab() {
 }
 
 function ProTab() {
-  const [email, setEmail] = useState('')
+  const [email, setEmail]       = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [formError, setFormError] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (email.trim()) setSubmitted(true)
+    if (!email.trim()) return
+
+    setIsLoading(true)
+    setFormError('')
+
+    try {
+      const res = await fetch('https://formspree.io/f/xzdkebwz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+
+      if (res.ok) {
+        setSubmitted(true)
+      } else {
+        const data = await res.json()
+        setFormError(data?.errors?.[0]?.message || 'Something went wrong. Please try again.')
+      }
+    } catch {
+      setFormError('Network error. Please check your connection and try again.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -197,9 +221,9 @@ function ProTab() {
         >
           <p style={{ fontSize: '24px', marginBottom: '6px' }}>🎉</p>
           <p style={{ fontSize: '15px', fontWeight: 700, color: '#16a34a', margin: 0 }}>
-            You're on the list!
+            Thanks! You're on the list!
           </p>
-          <p style={{ fontSize: '13px', color: '#15803d', marginTop: '4px', margin: '4px 0 0' }}>
+          <p style={{ fontSize: '13px', color: '#15803d', margin: '6px 0 0' }}>
             We'll email you the moment Pro launches.
           </p>
         </div>
@@ -211,40 +235,52 @@ function ProTab() {
             onChange={e => setEmail(e.target.value)}
             placeholder="Enter your email address"
             required
+            disabled={isLoading}
             style={{
               width: '100%',
               padding: '12px 16px',
               borderRadius: '12px',
-              border: '1.5px solid #e7e5e4',
-              fontSize: '14px',
+              border: `1.5px solid ${formError ? '#dc2626' : '#e7e5e4'}`,
+              fontSize: '16px',
               color: '#1c1917',
               fontFamily: 'inherit',
               outline: 'none',
               boxSizing: 'border-box',
+              opacity: isLoading ? 0.6 : 1,
             }}
-            onFocus={e => { e.currentTarget.style.borderColor = '#f97316' }}
-            onBlur={e => { e.currentTarget.style.borderColor = '#e7e5e4' }}
+            onFocus={e => { if (!formError) e.currentTarget.style.borderColor = '#f97316' }}
+            onBlur={e => { if (!formError) e.currentTarget.style.borderColor = '#e7e5e4' }}
           />
+
+          {formError && (
+            <p style={{ fontSize: '13px', color: '#dc2626', margin: 0, textAlign: 'left', paddingLeft: '4px' }}>
+              ⚠️ {formError}
+            </p>
+          )}
+
           <button
             type="submit"
+            disabled={isLoading || !email.trim()}
             style={{
               width: '100%',
               padding: '13px 20px',
               borderRadius: '12px',
               border: 'none',
-              background: 'linear-gradient(to right, #dc2626, #f97316)',
-              color: 'white',
+              background: isLoading
+                ? '#c4ccd6'
+                : 'linear-gradient(to right, #dc2626, #f97316)',
+              color: isLoading ? '#94a3b8' : 'white',
               fontSize: '15px',
               fontWeight: 700,
               fontFamily: 'inherit',
-              cursor: 'pointer',
+              cursor: isLoading ? 'wait' : 'pointer',
               transition: 'opacity 0.15s',
+              minHeight: '48px',
             }}
-            onMouseOver={e => { e.currentTarget.style.opacity = '0.9' }}
-            onMouseOut={e => { e.currentTarget.style.opacity = '1' }}
           >
-            Join the Waitlist
+            {isLoading ? 'Submitting...' : 'Join the Waitlist'}
           </button>
+
           <p style={{ fontSize: '12px', color: '#a8a29e', margin: 0 }}>
             No spam. Ever. We promise. 🤞
           </p>
