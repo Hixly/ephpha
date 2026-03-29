@@ -39,3 +39,49 @@ export default function ProModal({ onClose }: ProModalProps) {
             Pro Plan
           </button>
         </div>
+          Pro Plan
+          </button>
+        </div>
+
+        {activeTab === 'about' && (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold text-stone-800">
+                Welcome to <span className="bg-gradient-to-r from-red-700 to-amber-500 bg-clip-text text-transparent">Ephpha</span>
+              </h2>
+              <p className="text-slate-600 mt-2">Your email's secret weapon for more opens</p>
+            </div>
+            <div className="p-6 bg-gradient-to-r from-red-50 to-amber-50 rounded-2xl border border-red-100">
+              <h3 className="font-semibold text-stone-800 mb-3">Why Ephpha?</h3>
+              <ul className="space-y-3 text-slate-600">
+                <li>Stand out in every inbox</li>
+                <li>AI-powered analysis</li>
+                <li>3 AI alternatives per analysis</li>
+                <li>Save history</li>
+              </ul>
+            </div>
+          </div>
+        )}        {activeTab === 'origin' && (          <div className="space-y-6">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-stone-800">The Story Behind Ephpha</h2>
+            </div>
+            <div className="p-6 bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl border border-amber-100">
+              <p className="text-stone-600 leading-relaxed">
+                Ephphatha (אפתחא in Aramaic) means "Be opened" — an ancient command telling something to unlock its potential.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'pro' && (
+          <div className="space-y-6">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-stone-800">Ephpha Pro</h2>
+              <p className="text-stone-600 mt-2">Coming Soon</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
