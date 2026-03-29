@@ -25,16 +25,21 @@ export default function Header({ onSettingsClick, onHistoryClick }: HeaderProps)
   return (
     <header style={{ backgroundColor: 'white', borderBottom: '1px solid #f1f0ef' }}
       className="sticky top-0 z-10">
-      <div className="max-w-4xl mx-auto px-5 py-3 flex items-center justify-between">
+      <div className="max-w-4xl mx-auto px-5 py-2 flex items-center justify-between">
 
         {/* Logo + brand name */}
         <div className="flex items-center gap-3">
+          {/* FIX 1: no background/box — transparent, larger size */}
           <img
             src="/logo-icon.png"
             alt="Ephpha logo"
-            width={40}
-            height={40}
-            style={{ objectFit: 'contain' }}
+            width={56}
+            height={56}
+            style={{
+              objectFit: 'contain',
+              background: 'transparent',
+              display: 'block',
+            }}
           />
           <span className="font-bold tracking-tight leading-none" style={{ fontSize: '20px' }}>
             <span style={{ color: '#1c1917' }}>Eph</span>
