@@ -68,7 +68,7 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
         </h1>
 
         {/* Subtitle */}
-        <p className="text-center mb-6 sm:mb-8 px-2" style={{ color: '#78716c', fontSize: '15px' }}>
+        <p className="text-center mb-6 sm:mb-8 px-2" style={{ color: '#1c1917', fontSize: '15px', fontWeight: 600 }}>
           Ephpha gives your emails the edge they need to stand out in any inbox
         </p>
 
