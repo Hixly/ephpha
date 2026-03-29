@@ -28,23 +28,22 @@ export default function Header({ onSettingsClick, onHistoryClick }: HeaderProps)
       <div className="max-w-4xl mx-auto px-5 py-2 flex items-center justify-between">
 
         {/* Logo + brand name */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           {/*
             mix-blend-mode: multiply  → blends white/grey PNG areas into the white header,
             making the background completely invisible while preserving the red/orange logo colors.
+            clip-path inset trims the baked-in drop-shadow bleeding at PNG edges.
           */}
           <img
             src="/logo-icon.png"
             alt="Ephpha logo"
-            width={84}
-            height={84}
+            width={100}
+            height={100}
             style={{
               objectFit: 'contain',
               display: 'block',
-              /* multiply turns white/grey pixels invisible on white header */
               mixBlendMode: 'multiply',
-              /* inset clips the outer shadow/glow bleeding at the PNG edges */
-              clipPath: 'inset(7% round 0px)',
+              clipPath: 'inset(14% round 0px)',
             }}
           />
 
