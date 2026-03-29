@@ -17,42 +17,42 @@ export default function AlternativesList({ alternatives, onCopy }: AlternativesL
   }
 
   return (
-    <div className="space-y-3">
-      {/* FIX 2: "AI-powered" label in heading */}
-      <h3 className="flex items-center gap-2 text-base font-bold text-stone-700 uppercase tracking-wider">
+    <div className="space-y-3 w-full">
+      <h3 className="flex items-center gap-2 text-sm sm:text-base font-bold text-stone-700 uppercase tracking-wider">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="#f97316">
           <path d="M13 2L4.5 13.5H11L10 22L19.5 10.5H13L13 2Z"/>
         </svg>
         AI-Powered Alternatives
       </h3>
-      <ul className="space-y-2">
+      <ul className="space-y-2 w-full">
         {alternatives.map((alt, i) => (
           <li
             key={i}
-            className="flex items-center justify-between gap-3 rounded-xl px-4 py-3"
+            className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 rounded-xl px-3 sm:px-4 py-3 w-full"
             style={{
               background: 'linear-gradient(to right, #fff7f0, #fff9f5)',
               border: '1px solid #fed7aa',
             }}
           >
-            {/* FIX 2: "AI:" prefix on each alternative */}
-            <span className="text-stone-800 text-sm font-medium min-w-0">
+            {/* Alternative text */}
+            <span className="text-stone-800 text-sm font-medium min-w-0 flex-1">
               <span style={{ color: '#f97316', fontWeight: 700 }}>AI: </span>
               {alt}
             </span>
 
-            {/* FIX 4: prominent Copy button with orange border */}
+            {/* Copy button — full width on mobile, auto on sm+ */}
             <button
               onClick={() => handleCopy(alt, i)}
               style={{
-                flexShrink: 0,
                 fontSize: '12px',
                 fontWeight: 600,
-                padding: '5px 14px',
+                padding: '7px 16px',
                 borderRadius: '8px',
                 transition: 'all 0.15s',
                 fontFamily: 'inherit',
                 cursor: 'pointer',
+                flexShrink: 0,
+                minHeight: '36px',
                 ...(copiedIdx === i
                   ? {
                       background: '#dcfce7',
@@ -65,6 +65,7 @@ export default function AlternativesList({ alternatives, onCopy }: AlternativesL
                       border: '1.5px solid #f97316',
                     }),
               }}
+              className="w-full sm:w-auto"
             >
               {copiedIdx === i ? '✓ Copied' : 'Copy'}
             </button>
