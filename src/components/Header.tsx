@@ -25,31 +25,23 @@ export default function Header({ onSettingsClick, onHistoryClick }: HeaderProps)
   return (
     <header style={{ backgroundColor: 'white', borderBottom: '1px solid #f1f0ef' }}
       className="sticky top-0 z-10">
-      <div className="max-w-4xl mx-auto px-5 py-2 flex items-center justify-between">
+      <div className="max-w-4xl mx-auto px-4 sm:px-5 py-2 flex items-center justify-between">
 
         {/* Logo + brand name */}
         <div className="flex items-center gap-2">
-          {/*
-            The PNG has real alpha transparency — no mix-blend-mode needed.
-            Transparent pixels naturally show the white header behind them.
-          */}
           <img
             src="/logo-icon.png"
             alt="Ephpha logo"
-            width={90}
-            height={90}
-            style={{
-              objectFit: 'contain',
-              display: 'block',
-            }}
+            width={70}
+            height={70}
+            className="w-14 h-14 sm:w-[70px] sm:h-[70px]"
+            style={{ objectFit: 'contain', display: 'block' }}
           />
-
-          {/* "Ephpha" as a single red→orange gradient, ".ai" stays grey */}
           <div className="leading-none">
             <span
               className="font-extrabold tracking-tight"
               style={{
-                fontSize: '22px',
+                fontSize: '20px',
                 background: 'linear-gradient(to right, #dc2626 0%, #f97316 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -58,32 +50,26 @@ export default function Header({ onSettingsClick, onHistoryClick }: HeaderProps)
             >
               Ephpha
             </span>
-            <span
-              style={{
-                fontSize: '14px',
-                fontWeight: 500,
-                color: '#a8a29e',
-                marginLeft: '1px',
-              }}
-            >
+            <span style={{ fontSize: '13px', fontWeight: 500, color: '#a8a29e', marginLeft: '1px' }}>
               .ai
             </span>
           </div>
         </div>
 
-        {/* Nav right: sparkle tagline + gear */}
-        <div className="flex items-center gap-3">
+        {/* Nav right */}
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={onSettingsClick}
-            className="flex items-center gap-1.5 font-medium text-sm transition-opacity hover:opacity-75"
+            className="flex items-center gap-1.5 font-medium transition-opacity hover:opacity-75 min-h-[44px] px-2"
             style={{ color: '#f97316' }}
           >
             <SparkleIcon />
-            Unlock your email opens
+            {/* Hide label on mobile, show on sm+ */}
+            <span className="hidden sm:inline text-sm">Unlock your email opens</span>
           </button>
           <button
             onClick={onHistoryClick}
-            className="transition-opacity hover:opacity-50"
+            className="transition-opacity hover:opacity-50 min-h-[44px] min-w-[44px] flex items-center justify-center"
             style={{ color: '#a8a29e' }}
             title="History"
           >
