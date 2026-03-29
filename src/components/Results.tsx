@@ -17,10 +17,9 @@ interface ResultsProps {
 
 export default function Results({ result, onCopy }: ResultsProps) {
   return (
-    <div className="max-w-2xl mx-auto px-4 pb-16">
-      <div className="bg-white rounded-3xl shadow-xl p-6 sm:p-8 space-y-8">
+    <div className="w-full max-w-2xl mx-auto px-4 pb-12 overflow-x-hidden">
+      <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 w-full">
         <ScoreCard score={result.score} />
-        {/* FIX 2: AI Alternatives first */}
         <AlternativesList alternatives={result.alternatives} onCopy={onCopy} />
         <IssuesList issues={result.issues} />
         <SuggestionsList suggestions={result.suggestions} />
