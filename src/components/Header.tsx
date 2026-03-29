@@ -30,20 +30,17 @@ export default function Header({ onSettingsClick, onHistoryClick }: HeaderProps)
         {/* Logo + brand name */}
         <div className="flex items-center gap-2">
           {/*
-            mix-blend-mode: multiply  → blends white/grey PNG areas into the white header,
-            making the background completely invisible while preserving the red/orange logo colors.
-            clip-path inset trims the baked-in drop-shadow bleeding at PNG edges.
+            The PNG has real alpha transparency — no mix-blend-mode needed.
+            Transparent pixels naturally show the white header behind them.
           */}
           <img
             src="/logo-icon.png"
             alt="Ephpha logo"
-            width={100}
-            height={100}
+            width={90}
+            height={90}
             style={{
               objectFit: 'contain',
               display: 'block',
-              mixBlendMode: 'multiply',
-              clipPath: 'inset(14% round 0px)',
             }}
           />
 
