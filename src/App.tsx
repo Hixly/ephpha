@@ -6,6 +6,7 @@ import Results from './components/Results'
 import ProModal from './components/ProModal'
 import History from './components/History'
 import Footer from './components/Footer'
+import EmailWriter from './components/EmailWriter'
 import confetti from 'canvas-confetti'
 import { Analytics } from '@vercel/analytics/react'
 
@@ -30,8 +31,7 @@ const loadingMessages = [
   'Brewing some magic...',
 ]
 
-const SYSTEM_PROMPT = `You are an expert email marketing analyst specializing in subject line optimization.
-Analyze the given email subject line and return ONLY valid JSON with this exact structure:
+const SYSTEM_PROMPT = `You are an expert email marketing analyst specializing in subject line optimization. Analyze the given email subject line and return ONLY valid JSON with this exact structure:
 {
   "score": <integer 0-100>,
   "issues": [<string>, ...],
@@ -41,9 +41,9 @@ Analyze the given email subject line and return ONLY valid JSON with this exact 
 
 Scoring guide:
 - 80-100: Excellent (compelling, clear, right length, good hooks)
-- 60-79:  Good (solid but could be improved)
-- 40-59:  Fair (noticeable problems)
-- 0-39:   Poor (spam-like, too long/short, confusing)
+- 60-79: Good (solid but could be improved)
+- 40-59: Fair (noticeable problems)
+- 0-39: Poor (spam-like, too long/short, confusing)
 
 Rules:
 - "issues" = specific problems found (2-4 items, or 1 if very good). Be concrete, not generic.
@@ -52,14 +52,17 @@ Rules:
 - Keep each string concise (under 100 chars).
 - Return ONLY the JSON object, no extra text.`
 
+type Tab = 'analyze' | 'write'
+
 export default function App() {
-  const [subject, setSubject]               = useState('')
-  const [isAnalyzing, setIsAnalyzing]       = useState(false)
-  const [result, setResult]                 = useState<AnalysisResult | null>(null)
-  const [error, setError]                   = useState('')
+  const [activeTab, setActiveTab] = useState<Tab>('analyze')
+  const [subject, setSubject] = useState('')
+  const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const [result, setResult] = useState<AnalysisResult | null>(null)
+  const [error, setError] = useState('')
   const [loadingMessage, setLoadingMessage] = useState('')
-  const [showProModal, setShowProModal]     = useState(false)
-  const [showHistory, setShowHistory]       = useState(false)
+  const [showProModal, setShowProModal] = useState(false)
+  const [showHistory, setShowHistory] = useState(false)
 
   const analyzeSubject = async () => {
     if (!subject.trim()) {
@@ -94,7 +97,6 @@ export default function App() {
 
       const parsed = JSON.parse(raw) as AnalysisResult
 
-      // Validate shape
       if (
         typeof parsed.score !== 'number' ||
         !Array.isArray(parsed.issues) ||
@@ -105,9 +107,9 @@ export default function App() {
       }
 
       const analysisResult: AnalysisResult = {
-        score:        Math.min(100, Math.max(0, Math.round(parsed.score))),
-        issues:       parsed.issues.slice(0, 5),
-        suggestions:  parsed.suggestions.slice(0, 5),
+        score: Math.min(100, Math.max(0, Math.round(parsed.score))),
+        issues: parsed.issues.slice(0, 5),
+        suggestions: parsed.suggestions.slice(0, 5),
         alternatives: parsed.alternatives.slice(0, 3),
       }
 
@@ -115,7 +117,6 @@ export default function App() {
         confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } })
       }
 
-      // Save to history
       const history = JSON.parse(localStorage.getItem('ephpha-history') || '[]')
       const newHistory = [
         { subject, score: analysisResult.score, date: new Date().toISOString() },
@@ -124,7 +125,6 @@ export default function App() {
       localStorage.setItem('ephpha-history', JSON.stringify(newHistory))
 
       setResult(analysisResult)
-
     } catch (err: unknown) {
       console.error('Analysis error:', err)
 
@@ -148,25 +148,60 @@ export default function App() {
     }
   }
 
+  const tabStyle = (tab: Tab): React.CSSProperties => ({
+    padding: '10px 20px',
+    fontWeight: 700,
+    fontSize: '14px',
+    border: 'none',
+    background: 'none',
+    cursor: 'pointer',
+    borderBottom: activeTab === tab ? '2px solid #dc2626' : '2px solid transparent',
+    color: activeTab === tab ? '#dc2626' : '#a8a29e',
+    fontFamily: 'inherit',
+    transition: 'color 0.15s',
+  })
+
   return (
     <div style={{ minHeight: '100vh' }}>
       <Header
         onSettingsClick={() => setShowProModal(true)}
         onHistoryClick={() => setShowHistory(true)}
       />
-      <Hero
-        subject={subject}
-        onSubjectChange={setSubject}
-        onAnalyze={analyzeSubject}
-        isAnalyzing={isAnalyzing}
-        error={error}
-        loadingMessage={loadingMessage}
-      />
-      {result && <Results result={result} onCopy={text => navigator.clipboard.writeText(text)} />}
+
+      {/* Tab bar */}
+      <div style={{ backgroundColor: 'white', borderBottom: '1px solid #f1f0ef' }}>
+        <div className="max-w-2xl mx-auto px-4" style={{ display: 'flex' }}>
+          <button style={tabStyle('analyze')} onClick={() => setActiveTab('analyze')}>
+            ⚡ Analyze
+          </button>
+          <button style={tabStyle('write')} onClick={() => setActiveTab('write')}>
+            ✍️ Write
+          </button>
+        </div>
+      </div>
+
+      {activeTab === 'analyze' && (
+        <>
+          <Hero
+            subject={subject}
+            onSubjectChange={setSubject}
+            onAnalyze={analyzeSubject}
+            isAnalyzing={isAnalyzing}
+            error={error}
+            loadingMessage={loadingMessage}
+          />
+          {result && <Results result={result} onCopy={text => navigator.clipboard.writeText(text)} />}
+        </>
+      )}
+
+      {activeTab === 'write' && (
+        <EmailWriter onUpgradeClick={() => setShowProModal(true)} />
+      )}
+
       {showProModal && <ProModal onClose={() => setShowProModal(false)} />}
-      {showHistory  && <History onClose={() => setShowHistory(false)} />}
+      {showHistory && <History onClose={() => setShowHistory(false)} />}
       <Footer />
-              <Analytics />
+      <Analytics />
     </div>
   )
 }
