@@ -7,6 +7,7 @@ import ProModal from './components/ProModal'
 import History from './components/History'
 import Footer from './components/Footer'
 import confetti from 'canvas-confetti'
+import { Analytics } from '@vercel/analytics/react'
 
 interface AnalysisResult {
   score: number
@@ -165,6 +166,7 @@ export default function App() {
       {showProModal && <ProModal onClose={() => setShowProModal(false)} />}
       {showHistory  && <History onClose={() => setShowHistory(false)} />}
       <Footer />
+              <Analytics />
     </div>
   )
 }
