@@ -68,8 +68,10 @@ export default function Footer() {
             AI-powered email tools
           </span>
         </div>
-
-        <div className="flex items-center gap-4 sm:gap-5">
+        <div
+          className="flex items-center"
+          style={{ gap: '20px', marginTop: '12px' }}
+        >
           <a
             href="https://www.instagram.com/ephpha.ai/"
             target="_blank"
