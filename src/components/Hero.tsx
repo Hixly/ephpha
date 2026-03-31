@@ -57,16 +57,16 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
 
   const btnStyle: React.CSSProperties = hasText && !isAnalyzing
     ? {
-        background: 'linear-gradient(to right, #dc2626, #f97316)',
+        backgroundColor: '#dc2626',
         color: 'white',
         cursor: 'pointer',
         opacity: 1,
       }
     : {
-        background: 'linear-gradient(to right, #dc2626, #f97316)',
+        backgroundColor: '#dc2626',
         color: 'white',
         cursor: hasText ? 'wait' : 'not-allowed',
-        opacity: 0.5,
+        opacity: 0.45,
       }
 
   return (
@@ -124,7 +124,7 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
               onFocus={e => {
                 if (!error) {
                   e.currentTarget.style.borderColor = '#f97316'
-                  e.currentTarget.style.boxShadow = '0 0 0 2px #fed7aa'
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(251,146,60,0.2)'
                 }
               }}
               onBlur={e => {
