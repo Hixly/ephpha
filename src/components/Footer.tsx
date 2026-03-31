@@ -41,6 +41,14 @@ function MediumIcon() {
   )
 }
 
+function QuoraIcon() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12.555 18.077c-.995-1.624-2.087-3.152-3.948-3.152-.313 0-.632.05-.916.175l-.595-1.129c.758-.657 1.982-1.096 3.34-1.096 2.475 0 3.99 1.234 5.147 2.836C16.496 14.427 17 12.295 17 9.999 17 4.477 14.761 1 12 1S7 4.477 7 10c0 5.514 2.236 8.999 5 8.999.573 0 1.12-.146 1.635-.429l-.08-.493zm1.228 1.542C12.945 20.472 11.498 21 12 21c-4.418 0-8-4.925-8-11S7.582 1 12 1s8 3.925 8 9c0 3.124-.97 5.865-2.636 7.627.39.674.837 1.069 1.415 1.069.552 0 .9-.231 1.217-.68l.504.407C20.031 19.848 19.119 21 17.67 21c-1.27 0-2.201-.698-2.921-1.638l.034.257z"/>
+    </svg>
+  )
+}
+
 export default function Footer() {
   return (
     <footer style={{ borderTop: '1px solid #f1f0ef', backgroundColor: 'white' }}>
@@ -118,6 +126,19 @@ export default function Footer() {
             title="Medium"
           >
             <MediumIcon />
+          </a>
+          <a
+            href="https://www.quora.com/profile/Ephpha"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors"
+            style={{ color: '#a8a29e' }}
+            onMouseOver={e => (e.currentTarget.style.color = '#b92b27')}
+            onMouseOut={e => (e.currentTarget.style.color = '#a8a29e')}
+            aria-label="Ephpha on Quora"
+            title="Quora"
+          >
+            <QuoraIcon />
           </a>
         </div>
       </div>
