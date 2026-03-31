@@ -5,12 +5,12 @@ import { writeEmail } from '../api/write-email'
 const FREE_LIMIT = 999
 
 const EMAIL_TYPES = [
-  { id: 'Follow-up', label: '🔄 Follow-up' },
-  { id: 'Cold Outreach', label: '🎯 Cold Outreach' },
-  { id: 'Meeting Request', label: '📅 Meeting Request' },
-  { id: 'Thank You', label: '🙏 Thank You' },
-  { id: 'Reminder', label: '⏰ Reminder' },
-  { id: 'Custom', label: '✨ Custom' },
+  { id: 'Follow-up', label: 'Follow-up' },
+  { id: 'Cold Outreach', label: 'Cold Outreach' },
+  { id: 'Meeting Request', label: 'Meeting Request' },
+  { id: 'Thank You', label: 'Thank You' },
+  { id: 'Reminder', label: 'Reminder' },
+  { id: 'Custom', label: 'Custom' },
 ]
 
 const LOADING_MSGS = [
@@ -100,15 +100,12 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
   }
 
   const scoreColor = result
-    ? result.score >= 80 ? '#16a34a'
-    : result.score >= 60 ? '#d97706'
-    : '#dc2626'
+    ? result.score >= 80 ? '#16a34a' : result.score >= 60 ? '#d97706' : '#dc2626'
     : '#dc2626'
 
   return (
     <section className="py-10 sm:py-14 px-4">
       <div className="max-w-2xl mx-auto w-full">
-
         {/* Header */}
         <div className="text-center mb-8">
           <h1
@@ -123,14 +120,14 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
           >
             Emails That Get Replies
           </h1>
-          <p className="text-center px-2" style={{ color: '#1c1917', fontSize: '15px', fontWeight: 600 }}>
+          <p className="text-center px-2" style={{ color: '#6b7280', fontSize: '15px', fontWeight: 400 }}>
             Tell Ephpha your goal and get a polished, professional email in seconds
           </p>
         </div>
 
         {/* Goal textarea */}
         <div style={{ marginBottom: '16px' }}>
-          <label style={{ display: 'block', fontWeight: 700, fontSize: '14px', color: '#1c1917', marginBottom: '8px' }}>
+          <label style={{ display: 'block', fontWeight: 600, fontSize: '14px', color: '#1f2937', marginBottom: '8px' }}>
             What do you want your email to achieve?
           </label>
           <textarea
@@ -140,21 +137,39 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
             rows={4}
             disabled={isGenerating}
             style={{
-              width: '100%', padding: '14px 16px', borderRadius: '16px',
-              border: `2px solid ${error ? '#dc2626' : '#e7e5e4'}`,
-              backgroundColor: 'white', fontSize: '15px', color: '#1c1917',
-              resize: 'none', outline: 'none', fontFamily: 'inherit',
-              lineHeight: '1.55', boxSizing: 'border-box',
+              width: '100%',
+              padding: '14px 16px',
+              borderRadius: '12px',
+              border: `1px solid ${error ? '#dc2626' : '#e5e7eb'}`,
+              backgroundColor: 'white',
+              fontSize: '15px',
+              color: '#1c1917',
+              resize: 'none',
+              outline: 'none',
+              fontFamily: 'inherit',
+              lineHeight: '1.55',
+              boxSizing: 'border-box',
+              transition: 'border-color 0.15s, box-shadow 0.15s',
             }}
-            onFocus={e => { if (!error) e.currentTarget.style.borderColor = '#d1d5db' }}
-            onBlur={e => { if (!error) e.currentTarget.style.borderColor = '#e7e5e4' }}
+            onFocus={e => {
+              if (!error) {
+                e.currentTarget.style.borderColor = '#f97316'
+                e.currentTarget.style.boxShadow = '0 0 0 2px #fed7aa'
+              }
+            }}
+            onBlur={e => {
+              if (!error) {
+                e.currentTarget.style.borderColor = '#e5e7eb'
+                e.currentTarget.style.boxShadow = 'none'
+              }
+            }}
           />
           {error && <p style={{ color: '#dc2626', fontSize: '14px', marginTop: '6px', paddingLeft: '4px' }}>{error}</p>}
         </div>
 
         {/* Email type */}
         <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', fontWeight: 700, fontSize: '14px', color: '#1c1917', marginBottom: '10px' }}>
+          <label style={{ display: 'block', fontWeight: 600, fontSize: '14px', color: '#1f2937', marginBottom: '10px' }}>
             Email type
           </label>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
@@ -162,13 +177,20 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
               <label
                 key={t.id}
                 style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  padding: '10px 6px', borderRadius: '12px', cursor: 'pointer',
-                  border: `2px solid ${emailType === t.id ? '#dc2626' : '#e7e5e4'}`,
-                  backgroundColor: emailType === t.id ? '#fff5f5' : 'white',
-                  fontWeight: 600, fontSize: '13px',
-                  color: emailType === t.id ? '#dc2626' : '#57534e',
-                  transition: 'all 0.15s', userSelect: 'none', textAlign: 'center',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '10px 6px',
+                  borderRadius: '12px',
+                  cursor: 'pointer',
+                  border: emailType === t.id ? '2px solid #f97316' : '1px solid #e5e7eb',
+                  backgroundColor: emailType === t.id ? '#fff7ed' : '#f9fafb',
+                  fontWeight: emailType === t.id ? 600 : 400,
+                  fontSize: '13px',
+                  color: emailType === t.id ? '#c2410c' : '#374151',
+                  transition: 'all 0.15s',
+                  userSelect: 'none',
+                  textAlign: 'center',
                 }}
               >
                 <input
@@ -190,12 +212,22 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
           onClick={handleGenerate}
           disabled={btnDisabled}
           style={{
-            width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            gap: '10px', borderRadius: '16px', border: 'none', minHeight: '52px',
-            fontSize: '16px', fontWeight: 700, fontFamily: 'inherit',
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '10px',
+            borderRadius: '12px',
+            border: 'none',
+            minHeight: '52px',
+            fontSize: '16px',
+            fontWeight: 700,
+            fontFamily: 'inherit',
             cursor: btnDisabled ? 'not-allowed' : 'pointer',
-            background: !btnDisabled ? 'linear-gradient(to right, #dc2626, #f97316)' : '#c4ccd6',
-            color: !btnDisabled ? 'white' : '#94a3b8',
+            background: 'linear-gradient(to right, #dc2626, #f97316)',
+            color: 'white',
+            opacity: btnDisabled ? 0.5 : 1,
+            transition: 'opacity 0.15s',
           }}
         >
           {isGenerating ? (
@@ -222,7 +254,6 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
         {/* Result card */}
         {result && (
           <div style={{ marginTop: '28px', backgroundColor: 'white', borderRadius: '24px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)', padding: '24px' }}>
-
             {/* Subject */}
             <div style={{ marginBottom: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
@@ -273,10 +304,8 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
                 {result.body}
               </pre>
             </div>
-
           </div>
         )}
-
       </div>
     </section>
   )
