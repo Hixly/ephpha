@@ -69,8 +69,7 @@ export default function Footer() {
           </span>
         </div>
         <div
-          className="flex items-center"
-          style={{ gap: '20px', marginTop: '12px' }}
+          style={{ display: 'flex', alignItems: 'center', gap: '24px', marginTop: '16px' }}
         >
           <a
             href="https://www.instagram.com/ephpha.ai/"
