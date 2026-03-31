@@ -66,7 +66,7 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
         backgroundColor: '#dc2626',
         color: 'white',
         cursor: hasText ? 'wait' : 'not-allowed',
-        opacity: 0.45,
+        opacity: 0.6,
       }
 
   return (
@@ -87,7 +87,7 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
         </h1>
 
         {/* Subtitle */}
-        <p className="text-center mb-6 sm:mb-8 px-2" style={{ color: '#6b7280', fontSize: '15px', fontWeight: 400 }}>
+        <p className="text-center mb-6 sm:mb-8 px-2" style={{ color: '#6b7280', WebkitTextFillColor: '#6b7280', fontSize: '15px', fontWeight: 400 }}>
           Ephpha gives your emails the edge they need to stand out in any inbox
         </p>
 
@@ -110,7 +110,7 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
                 width: '100%',
                 padding: '14px 16px 32px 16px',
                 borderRadius: '12px',
-                border: `1px solid ${error ? '#dc2626' : '#e5e7eb'}`,
+                border: `1px solid ${error ? '#dc2626' : '#d1d5db'}`,
                 backgroundColor: 'white',
                 fontSize: '16px',
                 color: '#1c1917',
@@ -129,7 +129,7 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
               }}
               onBlur={e => {
                 if (!error) {
-                  e.currentTarget.style.borderColor = '#e5e7eb'
+                  e.currentTarget.style.borderColor = '#d1d5db'
                   e.currentTarget.style.boxShadow = 'none'
                 }
               }}
