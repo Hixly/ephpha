@@ -140,7 +140,7 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
               width: '100%',
               padding: '14px 16px',
               borderRadius: '12px',
-              border: `1px solid ${error ? '#dc2626' : '#e5e7eb'}`,
+              border: `1px solid ${error ? '#dc2626' : '#d1d5db'}`,
               backgroundColor: 'white',
               fontSize: '15px',
               color: '#1c1917',
@@ -159,7 +159,7 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
             }}
             onBlur={e => {
               if (!error) {
-                e.currentTarget.style.borderColor = '#e5e7eb'
+                e.currentTarget.style.borderColor = '#d1d5db'
                 e.currentTarget.style.boxShadow = 'none'
               }
             }}
@@ -184,7 +184,7 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
                   borderRadius: '12px',
                   cursor: 'pointer',
                   border: emailType === t.id ? '2px solid #f97316' : '1px solid #e5e7eb',
-                  backgroundColor: emailType === t.id ? '#fff7ed' : '#f9fafb',
+                  backgroundColor: emailType === t.id ? '#fff7ed' : '#f3f4f6',
                   fontWeight: emailType === t.id ? 600 : 400,
                   fontSize: '13px',
                   color: emailType === t.id ? '#c2410c' : '#374151',
@@ -226,7 +226,7 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
             cursor: btnDisabled ? 'not-allowed' : 'pointer',
             backgroundColor: '#dc2626',
             color: 'white',
-            opacity: btnDisabled ? 0.45 : 1,
+            opacity: btnDisabled ? 0.6 : 1,
             transition: 'opacity 0.15s',
           }}
         >
