@@ -69,17 +69,14 @@ export default function App() {
       setError('Please enter an email subject line')
       return
     }
-
     if (!import.meta.env.VITE_OPENAI_API_KEY) {
       setError('OpenAI API key not configured. Add VITE_OPENAI_API_KEY to your environment.')
       return
     }
-
     setIsAnalyzing(true)
     setError('')
     setLoadingMessage(loadingMessages[Math.floor(Math.random() * loadingMessages.length)])
     setResult(null)
-
     try {
       const response = await openai.chat.completions.create({
         model: 'gpt-4o-mini',
@@ -91,12 +88,9 @@ export default function App() {
         temperature: 0.7,
         max_tokens: 500,
       })
-
       const raw = response.choices[0]?.message?.content
       if (!raw) throw new Error('Empty response from AI')
-
       const parsed = JSON.parse(raw) as AnalysisResult
-
       if (
         typeof parsed.score !== 'number' ||
         !Array.isArray(parsed.issues) ||
@@ -105,29 +99,24 @@ export default function App() {
       ) {
         throw new Error('Unexpected response format from AI')
       }
-
       const analysisResult: AnalysisResult = {
         score: Math.min(100, Math.max(0, Math.round(parsed.score))),
         issues: parsed.issues.slice(0, 5),
         suggestions: parsed.suggestions.slice(0, 5),
         alternatives: parsed.alternatives.slice(0, 3),
       }
-
       if (analysisResult.score >= 80) {
         confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } })
       }
-
       const history = JSON.parse(localStorage.getItem('ephpha-history') || '[]')
       const newHistory = [
         { tool: 'analyze', subject, score: analysisResult.score, date: new Date().toISOString() },
         ...history,
       ].slice(0, 10)
       localStorage.setItem('ephpha-history', JSON.stringify(newHistory))
-
       setResult(analysisResult)
     } catch (err: unknown) {
       console.error('Analysis error:', err)
-
       if (err instanceof OpenAI.APIError) {
         if (err.status === 401) {
           setError('Invalid API key. Check your VITE_OPENAI_API_KEY.')
@@ -148,63 +137,118 @@ export default function App() {
     }
   }
 
-  const tabStyle = (tab: Tab): React.CSSProperties => ({
-    padding: '10px 20px',
-    fontWeight: 700,
-    fontSize: '14px',
-    border: 'none',
-    background: 'none',
-    cursor: 'pointer',
-    borderBottom: activeTab === tab ? '2px solid #dc2626' : '2px solid transparent',
-    color: activeTab === tab ? '#dc2626' : '#a8a29e',
-    fontFamily: 'inherit',
-    transition: 'color 0.15s',
-  })
-
   return (
-    <div style={{ minHeight: '100vh' }}>
-      <Header
-        onSettingsClick={() => setShowProModal(true)}
-        onHistoryClick={() => setShowHistory(true)}
-      />
+    <div style={{ minHeight: '100vh', backgroundColor: '#fafafa' }}>
+      <Header onSettingsClick={() => setShowProModal(true)} onHistoryClick={() => setShowHistory(true)} />
 
       {/* Tab bar */}
-      <div style={{ backgroundColor: 'white', borderBottom: '1px solid #f1f0ef' }}>
-        <div className="max-w-2xl mx-auto px-4" style={{ display: 'flex' }}>
-          <button style={tabStyle('write')} onClick={() => setActiveTab('write')}>
-            ✍️ Write
-          </button>
-          <button style={tabStyle('analyze')} onClick={() => setActiveTab('analyze')}>
-            ⚡ Analyze
+      <div style={{ backgroundColor: '#fafafa', borderBottom: '1px solid #f1f0ef' }}>
+        <div className="max-w-2xl mx-auto px-4" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '12px', paddingBottom: '12px' }}>
+          {/* Pill tab container */}
+          <div style={{ display: 'inline-flex', backgroundColor: '#f3f4f6', borderRadius: '999px', padding: '4px', gap: '2px' }}>
+            <button
+              onClick={() => setActiveTab('write')}
+              style={{
+                padding: '8px 20px',
+                fontWeight: 700,
+                fontSize: '14px',
+                border: 'none',
+                borderRadius: '999px',
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                transition: 'all 0.15s',
+                background: activeTab === 'write' ? 'white' : 'transparent',
+                color: activeTab === 'write' ? '#1f2937' : '#6b7280',
+                boxShadow: activeTab === 'write' ? '0 1px 4px rgba(0,0,0,0.10)' : 'none',
+              }}
+            >
+              Write
+            </button>
+            <button
+              onClick={() => setActiveTab('analyze')}
+              style={{
+                padding: '8px 20px',
+                fontWeight: 700,
+                fontSize: '14px',
+                border: 'none',
+                borderRadius: '999px',
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                transition: 'all 0.15s',
+                background: activeTab === 'analyze' ? 'white' : 'transparent',
+                color: activeTab === 'analyze' ? '#1f2937' : '#6b7280',
+                boxShadow: activeTab === 'analyze' ? '0 1px 4px rgba(0,0,0,0.10)' : 'none',
+              }}
+            >
+              Analyze
+            </button>
+          </div>
+
+          {/* New session button */}
+          <button
+            title="New session"
+            onClick={() => {
+              setSubject('')
+              setResult(null)
+              setError('')
+            }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '36px',
+              height: '36px',
+              borderRadius: '10px',
+              border: '1px solid #e5e7eb',
+              background: 'transparent',
+              cursor: 'pointer',
+              color: '#6b7280',
+              transition: 'all 0.15s',
+              fontFamily: 'inherit',
+              fontSize: '18px',
+              fontWeight: 400,
+              lineHeight: 1,
+            }}
+            onMouseOver={e => {
+              e.currentTarget.style.background = '#f3f4f6'
+              e.currentTarget.style.color = '#1f2937'
+            }}
+            onMouseOut={e => {
+              e.currentTarget.style.background = 'transparent'
+              e.currentTarget.style.color = '#6b7280'
+            }}
+          >
+            +
           </button>
         </div>
       </div>
 
-      {activeTab === 'analyze' && (
-        <>
-          <Hero
-            subject={subject}
-            onSubjectChange={setSubject}
-            onAnalyze={analyzeSubject}
-            isAnalyzing={isAnalyzing}
-            error={error}
-            loadingMessage={loadingMessage}
+      <div style={{ paddingTop: '8px' }}>
+        {activeTab === 'analyze' && (
+          <>
+            <Hero
+              subject={subject}
+              onSubjectChange={setSubject}
+              onAnalyze={analyzeSubject}
+              isAnalyzing={isAnalyzing}
+              error={error}
+              loadingMessage={loadingMessage}
+            />
+            {result && <Results result={result} onCopy={text => navigator.clipboard.writeText(text)} />}
+          </>
+        )}
+        {activeTab === 'write' && (
+          <EmailWriter
+            onUpgradeClick={() => setShowProModal(true)}
+            onSaveHistory={(goal: string, score: number) => {
+              const h = JSON.parse(localStorage.getItem('ephpha-history') || '[]')
+              localStorage.setItem('ephpha-history', JSON.stringify(
+                [{ tool: 'write', goal, score, date: new Date().toISOString() }, ...h].slice(0, 10)
+              ))
+            }}
           />
-          {result && <Results result={result} onCopy={text => navigator.clipboard.writeText(text)} />}
-        </>
-      )}
-
-      {activeTab === 'write' && (
-        <EmailWriter
-          onUpgradeClick={() => setShowProModal(true)}
-          onSaveHistory={(goal: string, score: number) => {
-            const h = JSON.parse(localStorage.getItem('ephpha-history') || '[]')
-            localStorage.setItem('ephpha-history', JSON.stringify(
-              [{ tool: 'write', goal, score, date: new Date().toISOString() }, ...h].slice(0, 10)
-            ))
-          }}
-        />
-      )}
+        )}
+      </div>
 
       {showProModal && <ProModal onClose={() => setShowProModal(false)} />}
       {showHistory && <History onClose={() => setShowHistory(false)} />}
