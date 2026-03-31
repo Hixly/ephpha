@@ -138,11 +138,11 @@ export default function App() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#fafafa' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#ffffff' }}>
       <Header onSettingsClick={() => setShowProModal(true)} onHistoryClick={() => setShowHistory(true)} />
 
       {/* Tab bar */}
-      <div style={{ backgroundColor: '#fafafa', borderBottom: '1px solid #f1f0ef' }}>
+      <div style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #f1f0ef' }}>
         <div className="max-w-2xl mx-auto px-4" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: '12px', paddingBottom: '12px' }}>
           {/* Pill tab container */}
           <div style={{ display: 'inline-flex', backgroundColor: '#f3f4f6', borderRadius: '999px', padding: '4px', gap: '2px' }}>
