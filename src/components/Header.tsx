@@ -41,7 +41,7 @@ export default function Header({ onSettingsClick, onHistoryClick, onNewSession }
         {/* Logo + brand name */}
         <div className="flex items-center gap-2">
           <img
-            src="/logo-icon.png"
+            src="/logo-icon.jpg"
             alt="Ephpha logo"
             width={70}
             height={70}
