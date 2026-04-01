@@ -115,7 +115,7 @@ export default function App() {
       />
 
       {/* Tab bar */}
-      <div style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #f1f0ef' }}>
+      <div style={{ borderBottom: '1px solid #f1f0ef' }}>
         <div
           className="max-w-2xl mx-auto px-4"
           style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '12px', paddingBottom: '12px' }}
