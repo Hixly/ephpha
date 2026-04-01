@@ -36,6 +36,10 @@ export default function App() {
   const [loadingMessage, setLoadingMessage] = useState('')
   const [showProModal, setShowProModal] = useState(false)
   const [showHistory, setShowHistory] = useState(false)
+  const [toast, setToast] = useState('')
+  const [isResetting, setIsResetting] = useState(false)
+  const [sessionKey, setSessionKey] = useState(0)
+  const [showConfirm, setShowConfirm] = useState(false)
 
   const analyzeSubject = async () => {
     if (!subject.trim()) {
@@ -100,14 +104,29 @@ export default function App() {
     }
   }
 
+  const doReset = () => {
+    setIsResetting(true)
+    setTimeout(() => {
+      setSubject('')
+      setResult(null)
+      setError('')
+      setSessionKey(k => k + 1)
+      setIsResetting(false)
+      setToast('Session cleared')
+      setTimeout(() => setToast(''), 2200)
+    }, 150)
+  }
+
   const handleNewSession = () => {
-    setSubject('')
-    setResult(null)
-    setError('')
+    if (subject.trim() || result) {
+      setShowConfirm(true)
+    } else {
+      doReset()
+    }
   }
 
   return (
-          <div style={{ minHeight: '100vh' }}>
+    <div style={{ minHeight: '100vh' }}>
       <Header
         onSettingsClick={() => setShowProModal(true)}
         onHistoryClick={() => setShowHistory(true)}
@@ -162,7 +181,13 @@ export default function App() {
         </div>
       </div>
 
-      <div style={{ paddingTop: '8px' }}>
+      <div
+        style={{
+          paddingTop: '8px',
+          opacity: isResetting ? 0 : 1,
+          transition: 'opacity 0.15s ease',
+        }}
+      >
         {activeTab === 'analyze' && (
           <>
             <Hero
@@ -178,6 +203,7 @@ export default function App() {
         )}
         {activeTab === 'write' && (
           <EmailWriter
+            key={sessionKey}
             onUpgradeClick={() => setShowProModal(true)}
             onSaveHistory={(goal: string, score: number) => {
               const h = JSON.parse(localStorage.getItem('ephpha-history') || '[]')
@@ -188,6 +214,71 @@ export default function App() {
           />
         )}
       </div>
+
+      {toast && (
+        <div style={{
+          position: 'fixed',
+          bottom: '24px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: '#1f2937',
+          color: '#fff',
+          padding: '10px 20px',
+          borderRadius: '999px',
+          fontSize: '14px',
+          fontWeight: 500,
+          boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
+          zIndex: 9999,
+          pointerEvents: 'none',
+          whiteSpace: 'nowrap',
+        }}>
+          {toast}
+        </div>
+      )}
+
+      {showConfirm && (
+        <div
+          style={{
+            position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.35)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9998,
+          }}
+          onClick={() => setShowConfirm(false)}
+        >
+          <div
+            style={{
+              background: '#fff', borderRadius: '16px', padding: '28px 24px',
+              maxWidth: '320px', width: '90%', boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
+              textAlign: 'center',
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            <p style={{ fontWeight: 700, fontSize: '16px', color: '#1f2937', marginBottom: '8px' }}>Clear your work?</p>
+            <p style={{ color: '#6b7280', fontSize: '14px', marginBottom: '22px', lineHeight: '1.5' }}>
+              This will reset the form and clear your current session.
+            </p>
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+              <button
+                onClick={() => setShowConfirm(false)}
+                style={{
+                  padding: '9px 20px', borderRadius: '999px', border: '1px solid #e5e7eb',
+                  background: '#fff', color: '#6b7280', fontWeight: 600, fontSize: '14px', cursor: 'pointer',
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => { setShowConfirm(false); doReset() }}
+                style={{
+                  padding: '9px 20px', borderRadius: '999px', border: 'none',
+                  background: '#dc2626', color: '#fff', fontWeight: 600, fontSize: '14px', cursor: 'pointer',
+                }}
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showProModal && <ProModal onClose={() => setShowProModal(false)} />}
       {showHistory && <History onClose={() => setShowHistory(false)} />}
