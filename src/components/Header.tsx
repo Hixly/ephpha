@@ -1,6 +1,7 @@
 interface HeaderProps {
   onSettingsClick: () => void
   onHistoryClick: () => void
+  onNewSession: () => void
 }
 
 function SparkleIcon() {
@@ -22,7 +23,16 @@ function HistoryIcon() {
   )
 }
 
-export default function Header({ onSettingsClick, onHistoryClick }: HeaderProps) {
+function NewSessionIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 5v14M5 12h14"/>
+    </svg>
+  )
+}
+
+export default function Header({ onSettingsClick, onHistoryClick, onNewSession }: HeaderProps) {
   return (
     <header style={{ backgroundColor: 'white', borderBottom: '1px solid #f1f0ef' }}
       className="sticky top-0 z-10">
@@ -84,6 +94,15 @@ export default function Header({ onSettingsClick, onHistoryClick }: HeaderProps)
             title="History"
           >
             <HistoryIcon />
+          </button>
+          <button
+            onClick={onNewSession}
+            className="transition-opacity hover:opacity-50 min-h-[44px] min-w-[44px] flex items-center justify-center"
+            style={{ color: '#a8a29e' }}
+            title="New session"
+            aria-label="New session"
+          >
+            <NewSessionIcon />
           </button>
         </div>
 
