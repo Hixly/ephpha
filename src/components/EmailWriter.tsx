@@ -109,6 +109,7 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
+              WebkitTextStroke: '1.5px rgba(0,0,0,0.55)',
             }}
           >
             Emails That Get Replies

@@ -81,6 +81,7 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
+            WebkitTextStroke: '1.5px rgba(0,0,0,0.55)',
           }}
         >
           Subject Lines That Get Opened

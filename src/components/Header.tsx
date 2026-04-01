@@ -43,9 +43,9 @@ export default function Header({ onSettingsClick, onHistoryClick, onNewSession }
           <img
             src="/logo-icon.png"
             alt="Ephpha logo"
-            width={140}
-            height={140}
-            className="w-28 h-28 sm:w-[140px] sm:h-[140px]"
+            width={100}
+            height={100}
+            className="w-[100px] h-[100px]"
             style={{ objectFit: 'contain', display: 'block', background: 'transparent', mixBlendMode: 'multiply' }}
           />
           <div className="leading-none">
