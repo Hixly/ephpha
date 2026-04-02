@@ -4,10 +4,13 @@ interface HeaderProps {
   onNewSession: () => void
 }
 
-function SparkleIcon() {
+function InfoIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M8 0 L9.2 5.8 L15 7 L9.2 8.2 L8 14 L6.8 8.2 L1 7 L6.8 5.8 Z" fill="white"/>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="8"/>
+      <line x1="12" y1="12" x2="12" y2="16"/>
     </svg>
   )
 }
@@ -69,23 +72,26 @@ export default function Header({ onSettingsClick, onHistoryClick, onNewSession }
 
         {/* Nav right */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* About Ephpha — ghost outline button (desktop) */}
           <button
             onClick={onSettingsClick}
-            title="Unlock your email opens"
-            aria-label="Unlock your email opens"
-            className="hidden sm:flex items-center gap-1.5 font-bold text-sm text-white bg-gradient-to-r from-red-700 to-amber-500 rounded-full min-h-[40px] px-4 transition-all hover:scale-105 hover:brightness-110 active:scale-95"
+            title="About Ephpha"
+            aria-label="About Ephpha"
+            className="hidden sm:flex items-center gap-1.5 font-semibold text-sm rounded-full min-h-[36px] px-3.5 transition-colors hover:bg-orange-50 active:scale-95"
+            style={{ color: '#f97316', border: '1.5px solid #fb923c', background: 'white' }}
           >
-            <SparkleIcon />
-            Unlock your email opens
+            <InfoIcon />
+            About Ephpha
           </button>
-          {/* Mobile: show just the sparkle icon */}
+          {/* Mobile: icon-only version */}
           <button
             onClick={onSettingsClick}
-            title="Unlock your email opens"
-            aria-label="Unlock your email opens"
-            className="sm:hidden flex items-center justify-center min-h-[44px] min-w-[44px] rounded-full bg-gradient-to-r from-red-700 to-amber-500 transition-all hover:brightness-110 active:scale-95"
+            title="About Ephpha"
+            aria-label="About Ephpha"
+            className="sm:hidden flex items-center justify-center min-h-[44px] min-w-[44px] rounded-full transition-colors hover:bg-orange-50 active:scale-95"
+            style={{ color: '#f97316' }}
           >
-            <SparkleIcon />
+            <InfoIcon />
           </button>
           <button
             onClick={onHistoryClick}
