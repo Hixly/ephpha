@@ -5,6 +5,7 @@ import Results from './components/Results'
 import ProModal from './components/ProModal'
 import History from './components/History'
 import Footer from './components/Footer'
+import ProSignup from './components/ProSignup'
 import EmailWriter from './components/EmailWriter'
 import confetti from 'canvas-confetti'
 import { Analytics } from '@vercel/analytics/react'
@@ -215,6 +216,7 @@ export default function App() {
             }}
           />
         )}
+        <ProSignup />
         <Footer />
       </div>
 
