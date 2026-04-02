@@ -238,18 +238,13 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
           }}
         >
           {isGenerating ? (
-            <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', width: '100%' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ animation: 'spin 0.8s linear infinite', transformOrigin: 'center', flexShrink: 0 }}>
-                  <circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.5)" strokeWidth="3" />
-                  <path d="M12 3a9 9 0 0 1 9 9" stroke="white" strokeWidth="3" strokeLinecap="round" />
-                </svg>
-                <span style={{ fontWeight: 700, fontSize: '15px' }}>Generating your email</span>
-              </span>
-              <span style={{ fontSize: '12px', fontWeight: 500, opacity: 0.8, transition: 'opacity 0.3s' }}>
-                {LOADING_MSGS[msgIndex]}
-              </span>
-            </span>
+            <>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ animation: 'spin 0.8s linear infinite', transformOrigin: 'center', flexShrink: 0 }}>
+                <circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.35)" strokeWidth="3" />
+                <path d="M12 3a9 9 0 0 1 9 9" stroke="white" strokeWidth="3" strokeLinecap="round" />
+              </svg>
+              {LOADING_MSGS[msgIndex]}
+            </>
           ) : (
             <>
               <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'white', borderRadius: '8px', width: '28px', height: '28px' }}>
