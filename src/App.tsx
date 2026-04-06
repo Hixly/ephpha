@@ -7,6 +7,7 @@ import History from './components/History'
 import Footer from './components/Footer'
 import ProSignup from './components/ProSignup'
 import EmailWriter from './components/EmailWriter'
+import ImproveTab from './components/ImproveTab'
 import confetti from 'canvas-confetti'
 import { Analytics } from '@vercel/analytics/react'
 
@@ -26,7 +27,7 @@ const loadingMessages = [
   'Brewing some magic...',
 ]
 
-type Tab = 'analyze' | 'write'
+type Tab = 'analyze' | 'write' | 'improve'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('write')
@@ -142,42 +143,28 @@ export default function App() {
         >
           {/* Pill tab container */}
           <div style={{ display: 'inline-flex', backgroundColor: '#f3f4f6', borderRadius: '999px', padding: '4px', gap: '2px' }}>
-            <button
-              onClick={() => setActiveTab('write')}
-              style={{
-                padding: '8px 20px',
-                fontWeight: 700,
-                fontSize: '14px',
-                border: 'none',
-                borderRadius: '999px',
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-                transition: 'all 0.15s',
-                background: activeTab === 'write' ? 'white' : 'transparent',
-                color: activeTab === 'write' ? '#1f2937' : '#6b7280',
-                boxShadow: activeTab === 'write' ? '0 1px 4px rgba(0,0,0,0.10)' : 'none',
-              }}
-            >
-              Write
-            </button>
-            <button
-              onClick={() => setActiveTab('analyze')}
-              style={{
-                padding: '8px 20px',
-                fontWeight: 700,
-                fontSize: '14px',
-                border: 'none',
-                borderRadius: '999px',
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-                transition: 'all 0.15s',
-                background: activeTab === 'analyze' ? 'white' : 'transparent',
-                color: activeTab === 'analyze' ? '#1f2937' : '#6b7280',
-                boxShadow: activeTab === 'analyze' ? '0 1px 4px rgba(0,0,0,0.10)' : 'none',
-              }}
-            >
-              Analyze
-            </button>
+            {(['write', 'improve', 'analyze'] as Tab[]).map(tab => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                style={{
+                  padding: '8px 20px',
+                  fontWeight: 700,
+                  fontSize: '14px',
+                  border: 'none',
+                  borderRadius: '999px',
+                  cursor: 'pointer',
+                  fontFamily: 'inherit',
+                  transition: 'all 0.15s',
+                  background: activeTab === tab ? 'white' : 'transparent',
+                  color: activeTab === tab ? '#1f2937' : '#6b7280',
+                  boxShadow: activeTab === tab ? '0 1px 4px rgba(0,0,0,0.10)' : 'none',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -204,6 +191,7 @@ export default function App() {
             {result && <Results result={result} onCopy={text => navigator.clipboard.writeText(text)} />}
           </>
         )}
+        {activeTab === 'improve' && <ImproveTab />}
         {activeTab === 'write' && (
           <EmailWriter
             key={sessionKey}
