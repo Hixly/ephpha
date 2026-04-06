@@ -8,6 +8,7 @@ import Footer from './components/Footer'
 import ProSignup from './components/ProSignup'
 import EmailWriter from './components/EmailWriter'
 import ImproveTab from './components/ImproveTab'
+import WhenToSendTab from './components/WhenToSendTab'
 import confetti from 'canvas-confetti'
 import { Analytics } from '@vercel/analytics/react'
 
@@ -27,7 +28,7 @@ const loadingMessages = [
   'Brewing some magic...',
 ]
 
-type Tab = 'analyze' | 'write' | 'improve'
+type Tab = 'analyze' | 'write' | 'improve' | 'whenToSend'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('write')
@@ -143,7 +144,7 @@ export default function App() {
         >
           {/* Pill tab container */}
           <div style={{ display: 'inline-flex', backgroundColor: '#f3f4f6', borderRadius: '999px', padding: '4px', gap: '2px' }}>
-            {(['write', 'improve', 'analyze'] as Tab[]).map(tab => (
+            {(['write', 'improve', 'analyze', 'whenToSend'] as Tab[]).map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -162,7 +163,7 @@ export default function App() {
                   whiteSpace: 'nowrap',
                 }}
               >
-                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                {tab === 'whenToSend' ? 'When To Send' : tab.charAt(0).toUpperCase() + tab.slice(1)}
               </button>
             ))}
           </div>
@@ -192,6 +193,7 @@ export default function App() {
           </>
         )}
         {activeTab === 'improve' && <ImproveTab />}
+        {activeTab === 'whenToSend' && <WhenToSendTab />}
         {activeTab === 'write' && (
           <EmailWriter
             key={sessionKey}
