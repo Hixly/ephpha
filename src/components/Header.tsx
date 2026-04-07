@@ -74,7 +74,7 @@ export default function Header({ onSettingsClick, onHistoryClick, onNewSession }
             onClick={onSettingsClick}
             title="About Ephpha"
             aria-label="About Ephpha"
-            className="hidden min-[500px]:flex items-center gap-1.5 font-semibold text-sm rounded-full min-h-[34px] px-3.5 transition-all hover:bg-red-50 active:scale-95"
+            className="hidden min-[600px]:flex items-center gap-1.5 font-semibold text-sm rounded-full min-h-[34px] px-3.5 transition-all hover:bg-red-50 active:scale-95"
             style={{ color: '#dc2626', border: '1.5px solid #dc2626', background: 'white', letterSpacing: '0.01em' }}
           >
             <InfoIcon />
@@ -85,7 +85,7 @@ export default function Header({ onSettingsClick, onHistoryClick, onNewSession }
             onClick={onSettingsClick}
             title="About Ephpha"
             aria-label="About Ephpha"
-            className="min-[500px]:hidden flex items-center justify-center min-h-[44px] min-w-[44px] rounded-full transition-colors hover:bg-orange-50 active:scale-95"
+            className="min-[600px]:hidden flex items-center justify-center min-h-[44px] min-w-[44px] rounded-full transition-colors hover:bg-orange-50 active:scale-95"
             style={{ color: '#dc2626' }}
           >
             <InfoIcon />
