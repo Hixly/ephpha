@@ -6,6 +6,7 @@ import ProModal from './components/ProModal'
 import History from './components/History'
 import Footer from './components/Footer'
 import ProSignup from './components/ProSignup'
+import ExtensionPromo from './components/ExtensionPromo'
 import EmailWriter from './components/EmailWriter'
 import ImproveTab from './components/ImproveTab'
 import WhenToSendTab from './components/WhenToSendTab'
@@ -209,6 +210,7 @@ export default function App() {
           />
         )}
         <ProSignup />
+        <ExtensionPromo />
         <Footer />
       </div>
 
