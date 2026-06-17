@@ -95,31 +95,32 @@ export default function ImproveTab() {
     <section className="py-10 sm:py-14 px-4">
       <div className="max-w-2xl mx-auto w-full">
         {/* Header */}
-        <div
-          className="text-center mb-8"
-          style={{
-            background: 'rgba(255,249,246,0.92)',
-            borderRadius: '16px',
-            padding: '20px 16px 12px',
-            backdropFilter: 'blur(4px)',
-            WebkitBackdropFilter: 'blur(4px)',
-          }}
-        >
+        <div className="text-center mb-8 flex flex-col items-center">
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: '6px',
+            fontSize: '12px', fontWeight: 600, letterSpacing: '0.04em',
+            color: 'var(--brand-deep)', background: 'rgba(220,38,38,0.07)',
+            border: '1px solid rgba(220,38,38,0.14)', borderRadius: '999px',
+            padding: '5px 12px', marginBottom: '18px', textTransform: 'uppercase',
+          }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            Draft Polishing
+          </span>
           <h1
-            className="text-center font-extrabold leading-tight tracking-tight mb-3"
+            className="text-center mb-3"
             style={{
-              fontSize: 'clamp(1.75rem, 6vw, 3rem)',
-              background: 'linear-gradient(to right, #dc2626 0%, #c2410c 35%, #ea580c 60%, #f97316 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              WebkitTextStroke: '1.5px rgba(0,0,0,0.55)',
+              fontSize: 'clamp(1.9rem, 6vw, 3.15rem)',
+              fontWeight: 800,
+              lineHeight: 1.08,
+              letterSpacing: '-0.03em',
+              color: 'var(--ink)',
+              maxWidth: '14ch',
             }}
           >
-            Improve Your Email
+            Improve your <span style={{ color: 'var(--brand)' }}>email</span>
           </h1>
-          <p className="text-center px-2" style={{ color: '#6b7280', fontSize: '15px', fontWeight: 400 }}>
-            Paste a draft and get an improved version — with scores and specific fixes
+          <p className="text-center px-2" style={{ color: 'var(--ink-soft)', fontSize: '16px', fontWeight: 400, lineHeight: 1.55, maxWidth: '38ch' }}>
+            Paste a draft and get an improved version — with scores and specific fixes.
           </p>
         </div>
 
@@ -137,25 +138,26 @@ export default function ImproveTab() {
             style={{
               width: '100%',
               padding: '14px 16px',
-              borderRadius: '12px',
-              border: '1px solid #d1d5db',
+              borderRadius: 'var(--r-md)',
+              border: '1px solid #e2ddd9',
               backgroundColor: 'white',
               fontSize: '15px',
-              color: '#1c1917',
+              color: 'var(--ink)',
               resize: 'vertical',
               outline: 'none',
               fontFamily: 'inherit',
               lineHeight: '1.55',
               boxSizing: 'border-box',
+              boxShadow: 'var(--shadow-sm)',
               transition: 'border-color 0.15s, box-shadow 0.15s',
             }}
             onFocus={e => {
-              e.currentTarget.style.borderColor = '#f97316'
-              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(251,146,60,0.2)'
+              e.currentTarget.style.borderColor = '#dc2626'
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(220,38,38,0.14)'
             }}
             onBlur={e => {
-              e.currentTarget.style.borderColor = '#d1d5db'
-              e.currentTarget.style.boxShadow = 'none'
+              e.currentTarget.style.borderColor = '#e2ddd9'
+              e.currentTarget.style.boxShadow = 'var(--shadow-sm)'
             }}
           />
         </div>
@@ -173,10 +175,10 @@ export default function ImproveTab() {
                 style={{
                   padding: '8px 16px',
                   borderRadius: '999px',
-                  border: toneTarget === tone ? '2px solid #f97316' : '1px solid #e5e7eb',
-                  backgroundColor: toneTarget === tone ? '#fff7ed' : '#f9fafb',
-                  color: toneTarget === tone ? '#c2410c' : '#374151',
-                  fontWeight: toneTarget === tone ? 600 : 400,
+                  border: toneTarget === tone ? '1.5px solid #dc2626' : '1px solid #e7e2de',
+                  backgroundColor: toneTarget === tone ? 'rgba(220,38,38,0.06)' : '#ffffff',
+                  color: toneTarget === tone ? 'var(--brand-deep)' : 'var(--ink-soft)',
+                  fontWeight: toneTarget === tone ? 600 : 500,
                   fontSize: '13px',
                   cursor: 'pointer',
                   fontFamily: 'inherit',
@@ -201,20 +203,24 @@ export default function ImproveTab() {
             alignItems: 'center',
             justifyContent: 'center',
             gap: '8px',
-            borderRadius: '12px',
+            borderRadius: 'var(--r-md)',
             border: 'none',
             height: '52px',
             fontSize: '16px',
             fontWeight: 700,
+            letterSpacing: '-0.01em',
             fontFamily: 'inherit',
             cursor: btnDisabled ? 'not-allowed' : 'pointer',
             backgroundColor: '#dc2626',
             color: 'white',
             opacity: btnDisabled ? 0.6 : 1,
-            transition: 'opacity 0.15s',
+            boxShadow: btnDisabled ? 'none' : 'var(--shadow-brand)',
+            transition: 'opacity 0.15s, transform 0.15s, box-shadow 0.15s',
             overflow: 'hidden',
             whiteSpace: 'nowrap',
           }}
+          onMouseEnter={e => { if (!btnDisabled) e.currentTarget.style.transform = 'translateY(-1px)' }}
+          onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)' }}
         >
           {isImproving ? (
             <>

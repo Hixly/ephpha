@@ -34,7 +34,7 @@ function NewSessionIcon() {
 
 export default function Header({ onSettingsClick, onHistoryClick, onNewSession }: HeaderProps) {
   return (
-    <header style={{ backgroundColor: 'white', borderBottom: '1px solid #f1f0ef' }}
+    <header style={{ backgroundColor: 'rgba(255,255,255,0.82)', borderBottom: '1px solid var(--line)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
       className="sticky top-0 z-10">
       <div className="max-w-4xl mx-auto px-4 sm:px-5 py-2 flex items-center justify-between gap-2 overflow-hidden">
 
@@ -50,18 +50,16 @@ export default function Header({ onSettingsClick, onHistoryClick, onNewSession }
           />
           <div className="leading-none">
             <span
-              className="font-extrabold tracking-tight"
               style={{
                 fontSize: '26px',
-                background: 'linear-gradient(to right, #dc2626 0%, #f97316 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
+                fontWeight: 800,
+                letterSpacing: '-0.035em',
+                color: 'var(--brand)',
               }}
             >
               Ephpha
             </span>
-            <span style={{ fontSize: '16px', fontWeight: 600, color: '#1c1917', marginLeft: '1px' }}>
+            <span style={{ fontSize: '16px', fontWeight: 600, color: 'var(--muted)', marginLeft: '1px', letterSpacing: '-0.02em' }}>
               .ai
             </span>
           </div>

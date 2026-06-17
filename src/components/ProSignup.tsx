@@ -39,13 +39,13 @@ export default function ProSignup() {
         marginLeft: 'auto',
         marginRight: 'auto',
         background: '#fff',
-        borderRadius: '16px',
+        borderRadius: 'var(--r-lg)',
         padding: '20px 24px',
-        boxShadow: '0 2px 12px rgba(220,38,38,0.08)',
+        boxShadow: 'var(--shadow-md)',
         border: '1px solid rgba(220,38,38,0.12)',
         textAlign: 'center',
       }}>
-        <p style={{ fontSize: '15px', fontWeight: 600, color: '#1f2937', margin: 0 }}>
+        <p style={{ fontSize: '15px', fontWeight: 600, color: 'var(--ink)', margin: 0 }}>
           You're on the list! We'll be in touch. 🎉
         </p>
       </div>
@@ -59,9 +59,9 @@ export default function ProSignup() {
       marginLeft: 'auto',
       marginRight: 'auto',
       background: '#fff',
-      borderRadius: '16px',
-      padding: '20px 24px',
-      boxShadow: '0 2px 12px rgba(220,38,38,0.08)',
+      borderRadius: 'var(--r-lg)',
+      padding: '22px 24px',
+      boxShadow: 'var(--shadow-md)',
       border: '1px solid rgba(220,38,38,0.12)',
     }}>
       {/* Sparkle accent */}
@@ -74,10 +74,10 @@ export default function ProSignup() {
         </span>
       </div>
 
-      <p style={{ fontWeight: 800, fontSize: '17px', color: '#1f2937', margin: '0 0 4px', lineHeight: 1.3 }}>
+      <p style={{ fontWeight: 800, fontSize: '18px', color: 'var(--ink)', margin: '0 0 4px', lineHeight: 1.3, letterSpacing: '-0.02em' }}>
         Pro is coming. Get early access.
       </p>
-      <p style={{ fontSize: '13px', color: '#6b7280', margin: '0 0 14px', lineHeight: 1.5 }}>
+      <p style={{ fontSize: '13px', color: 'var(--ink-soft)', margin: '0 0 14px', lineHeight: 1.5 }}>
         Be first to know when Ephpha Pro launches — priority access, launch pricing, and no spam. Ever.
       </p>
 
@@ -90,14 +90,17 @@ export default function ProSignup() {
           style={{
             flex: 1,
             minWidth: '180px',
-            padding: '10px 14px',
+            padding: '11px 16px',
             borderRadius: '999px',
-            border: '1.5px solid #e5e7eb',
+            border: '1.5px solid #e2ddd9',
             fontSize: '14px',
             outline: 'none',
             fontFamily: 'inherit',
-            color: '#1f2937',
+            color: 'var(--ink)',
+            transition: 'border-color 0.15s, box-shadow 0.15s',
           }}
+          onFocus={e => { e.currentTarget.style.borderColor = '#dc2626'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(220,38,38,0.12)' }}
+          onBlur={e => { e.currentTarget.style.borderColor = '#e2ddd9'; e.currentTarget.style.boxShadow = 'none' }}
         />
         <button
           type="submit"

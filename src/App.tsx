@@ -138,13 +138,13 @@ export default function App() {
       />
 
       {/* Tab bar */}
-      <div style={{ borderBottom: '1px solid #f1f0ef' }}>
+      <div style={{ borderBottom: '1px solid var(--line)' }}>
         <div
           className="tab-scroll max-w-2xl mx-auto px-4"
           style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '12px', paddingBottom: '12px' }}
         >
           {/* Pill tab container */}
-          <div style={{ display: 'inline-flex', backgroundColor: '#f3f4f6', borderRadius: '999px', padding: '4px', gap: '2px', flexShrink: 0 }}>
+          <div style={{ display: 'inline-flex', backgroundColor: 'rgba(26,23,21,0.05)', border: '1px solid var(--line)', borderRadius: '999px', padding: '4px', gap: '2px', flexShrink: 0 }}>
             {(['write', 'improve', 'analyze', 'whenToSend'] as Tab[]).map(tab => (
               <button
                 key={tab}
@@ -160,8 +160,9 @@ export default function App() {
                   fontFamily: 'inherit',
                   transition: 'all 0.15s',
                   background: activeTab === tab ? 'white' : 'transparent',
-                  color: activeTab === tab ? '#1f2937' : '#6b7280',
-                  boxShadow: activeTab === tab ? '0 1px 4px rgba(0,0,0,0.10)' : 'none',
+                  color: activeTab === tab ? 'var(--ink)' : 'var(--muted)',
+                  letterSpacing: '-0.01em',
+                  boxShadow: activeTab === tab ? '0 1px 2px rgba(26,23,21,0.06), 0 2px 8px rgba(26,23,21,0.08)' : 'none',
                   whiteSpace: 'nowrap',
                   flexShrink: 0,
                 }}

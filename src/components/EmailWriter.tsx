@@ -111,22 +111,32 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
     <section className="py-10 sm:py-14 px-4">
       <div className="max-w-2xl mx-auto w-full">
         {/* Header */}
-        <div className="text-center mb-8" style={{ background: 'rgba(255,249,246,0.92)', borderRadius: '16px', padding: '20px 16px 12px', backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)' }}>
+        <div className="text-center mb-8 flex flex-col items-center">
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: '6px',
+            fontSize: '12px', fontWeight: 600, letterSpacing: '0.04em',
+            color: 'var(--brand-deep)', background: 'rgba(220,38,38,0.07)',
+            border: '1px solid rgba(220,38,38,0.14)', borderRadius: '999px',
+            padding: '5px 12px', marginBottom: '18px', textTransform: 'uppercase',
+          }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            AI Email Writer
+          </span>
           <h1
-            className="text-center font-extrabold leading-tight tracking-tight mb-3"
+            className="text-center mb-3"
             style={{
-              fontSize: 'clamp(1.75rem, 6vw, 3rem)',
-              background: 'linear-gradient(to right, #dc2626 0%, #c2410c 35%, #ea580c 60%, #f97316 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              WebkitTextStroke: '1.5px rgba(0,0,0,0.55)',
+              fontSize: 'clamp(1.9rem, 6vw, 3.15rem)',
+              fontWeight: 800,
+              lineHeight: 1.08,
+              letterSpacing: '-0.03em',
+              color: 'var(--ink)',
+              maxWidth: '16ch',
             }}
           >
-            Emails That Get Replies
+            Emails that get <span style={{ color: 'var(--brand)' }}>replies</span>
           </h1>
-          <p className="text-center px-2" style={{ color: '#6b7280', fontSize: '15px', fontWeight: 400 }}>
-            Tell Ephpha your goal and get a polished, professional email in seconds
+          <p className="text-center px-2" style={{ color: 'var(--ink-soft)', fontSize: '16px', fontWeight: 400, lineHeight: 1.55, maxWidth: '36ch' }}>
+            Tell Ephpha your goal and get a polished, professional email in seconds.
           </p>
         </div>
 
@@ -145,27 +155,28 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
               width: '100%',
               padding: '14px 16px',
               borderRadius: '12px',
-              border: `1px solid ${error ? '#dc2626' : '#d1d5db'}`,
+              border: `1px solid ${error ? '#dc2626' : '#e2ddd9'}`,
               backgroundColor: 'white',
               fontSize: '15px',
-              color: '#1c1917',
+              color: 'var(--ink)',
               resize: 'none',
               outline: 'none',
               fontFamily: 'inherit',
               lineHeight: '1.55',
               boxSizing: 'border-box',
+              boxShadow: 'var(--shadow-sm)',
               transition: 'border-color 0.15s, box-shadow 0.15s',
             }}
             onFocus={e => {
               if (!error) {
-                e.currentTarget.style.borderColor = '#f97316'
-                e.currentTarget.style.boxShadow = '0 0 0 3px rgba(251,146,60,0.2)'
+                e.currentTarget.style.borderColor = '#dc2626'
+                e.currentTarget.style.boxShadow = '0 0 0 3px rgba(220,38,38,0.14)'
               }
             }}
             onBlur={e => {
               if (!error) {
-                e.currentTarget.style.borderColor = '#d1d5db'
-                e.currentTarget.style.boxShadow = 'none'
+                e.currentTarget.style.borderColor = '#e2ddd9'
+                e.currentTarget.style.boxShadow = 'var(--shadow-sm)'
               }
             }}
           />
@@ -185,14 +196,15 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  padding: '10px 6px',
-                  borderRadius: '12px',
+                  padding: '11px 6px',
+                  borderRadius: 'var(--r-sm)',
                   cursor: 'pointer',
-                  border: emailType === t.id ? '2px solid #f97316' : '1px solid #e5e7eb',
-                  backgroundColor: emailType === t.id ? '#fff7ed' : '#f3f4f6',
-                  fontWeight: emailType === t.id ? 600 : 400,
+                  border: emailType === t.id ? '1.5px solid #dc2626' : '1px solid #e7e2de',
+                  backgroundColor: emailType === t.id ? 'rgba(220,38,38,0.06)' : '#ffffff',
+                  fontWeight: emailType === t.id ? 600 : 500,
                   fontSize: '13px',
-                  color: emailType === t.id ? '#c2410c' : '#374151',
+                  color: emailType === t.id ? 'var(--brand-deep)' : 'var(--ink-soft)',
+                  boxShadow: emailType === t.id ? 'none' : 'var(--shadow-sm)',
                   transition: 'all 0.15s',
                   userSelect: 'none',
                   textAlign: 'center',
@@ -224,21 +236,25 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
             alignItems: 'center',
             justifyContent: 'center',
             gap: '8px',
-            borderRadius: '12px',
+            borderRadius: 'var(--r-md)',
             border: 'none',
             height: '52px',
             fontSize: '16px',
             fontWeight: 700,
+            letterSpacing: '-0.01em',
             fontFamily: 'inherit',
             cursor: btnDisabled ? 'not-allowed' : 'pointer',
             backgroundColor: '#dc2626',
             color: 'white',
             opacity: btnDisabled ? 0.6 : 1,
-            transition: 'opacity 0.15s',
+            boxShadow: btnDisabled ? 'none' : 'var(--shadow-brand)',
+            transition: 'opacity 0.15s, transform 0.15s, box-shadow 0.15s',
             overflow: 'hidden',
             whiteSpace: 'nowrap',
             lineHeight: '1',
           }}
+          onMouseEnter={e => { if (!btnDisabled) e.currentTarget.style.transform = 'translateY(-1px)' }}
+          onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)' }}
         >
           {isGenerating ? (
             <>
@@ -260,7 +276,7 @@ export default function EmailWriter({ onUpgradeClick, onSaveHistory }: EmailWrit
 
         {/* Result card */}
         {result && (
-          <div style={{ marginTop: '28px', backgroundColor: 'white', borderRadius: '24px', boxShadow: '0 4px 24px rgba(0,0,0,0.08)', padding: '24px' }}>
+          <div style={{ marginTop: '28px', backgroundColor: 'white', borderRadius: 'var(--r-xl)', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--line)', padding: '24px' }}>
             {/* Subject */}
             <div style={{ marginBottom: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>

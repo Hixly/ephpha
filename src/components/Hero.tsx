@@ -73,25 +73,35 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
     <section className="py-10 sm:py-14 px-4">
       <div className="max-w-2xl mx-auto w-full">
         {/* Headline */}
-        <div className="text-center mb-6 sm:mb-8" style={{ background: 'rgba(255,249,246,0.92)', borderRadius: '16px', padding: '20px 16px 12px', backdropFilter: 'blur(4px)', WebkitBackdropFilter: 'blur(4px)' }}>
-        <h1
-          className="text-center font-extrabold leading-tight tracking-tight mb-3"
-          style={{
-            fontSize: 'clamp(1.75rem, 6vw, 3rem)',
-            background: 'linear-gradient(to right, #dc2626 0%, #c2410c 35%, #ea580c 60%, #f97316 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            WebkitTextStroke: '1.5px rgba(0,0,0,0.55)',
-          }}
-        >
-          Subject Lines That Get Opened
-        </h1>
+        <div className="text-center mb-7 sm:mb-9 flex flex-col items-center">
+          <span style={{
+            display: 'inline-flex', alignItems: 'center', gap: '6px',
+            fontSize: '12px', fontWeight: 600, letterSpacing: '0.04em',
+            color: 'var(--brand-deep)', background: 'rgba(220,38,38,0.07)',
+            border: '1px solid rgba(220,38,38,0.14)', borderRadius: '999px',
+            padding: '5px 12px', marginBottom: '18px', textTransform: 'uppercase',
+          }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--brand)"><path d="M13 2L4.5 13.5H11L10 22L19.5 10.5H13L13 2Z"/></svg>
+            Subject Line Scoring
+          </span>
+          <h1
+            className="text-center mb-3"
+            style={{
+              fontSize: 'clamp(1.9rem, 6vw, 3.15rem)',
+              fontWeight: 800,
+              lineHeight: 1.08,
+              letterSpacing: '-0.03em',
+              color: 'var(--ink)',
+              maxWidth: '18ch',
+            }}
+          >
+            Subject lines that get <span style={{ color: 'var(--brand)' }}>opened</span>
+          </h1>
 
-        {/* Subtitle */}
-        <p className="text-center px-2" style={{ color: '#6b7280', WebkitTextFillColor: '#6b7280', fontSize: '15px', fontWeight: 400 }}>
-          Ephpha gives your emails the edge they need to stand out in any inbox
-        </p>
+          {/* Subtitle */}
+          <p className="text-center px-2" style={{ color: 'var(--ink-soft)', fontSize: '16px', fontWeight: 400, lineHeight: 1.55, maxWidth: '34ch' }}>
+            Ephpha gives your emails the edge they need to stand out in any inbox.
+          </p>
         </div>
 
         {/* Form */}
@@ -111,28 +121,29 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
               disabled={isAnalyzing}
               style={{
                 width: '100%',
-                padding: '14px 16px 32px 16px',
-                borderRadius: '12px',
-                border: `1px solid ${error ? '#dc2626' : '#d1d5db'}`,
+                padding: '15px 16px 34px 16px',
+                borderRadius: 'var(--r-md)',
+                border: `1px solid ${error ? '#dc2626' : '#e2ddd9'}`,
                 backgroundColor: 'white',
                 fontSize: '16px',
-                color: '#1c1917',
+                color: 'var(--ink)',
                 resize: 'none',
                 outline: 'none',
                 fontFamily: 'inherit',
                 transition: 'border-color 0.15s, box-shadow 0.15s',
                 lineHeight: '1.5',
                 boxSizing: 'border-box',
+                boxShadow: 'var(--shadow-sm)',
               }}
               onFocus={e => {
                 if (!error) {
-                  e.currentTarget.style.borderColor = '#f97316'
-                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(251,146,60,0.2)'
+                  e.currentTarget.style.borderColor = '#dc2626'
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(220,38,38,0.14)'
                 }
               }}
               onBlur={e => {
                 if (!error) {
-                  e.currentTarget.style.borderColor = '#d1d5db'
+                  e.currentTarget.style.borderColor = '#e2ddd9'
                   e.currentTarget.style.boxShadow = 'none'
                 }
               }}
@@ -165,14 +176,18 @@ export default function Hero({ subject, onSubjectChange, onAnalyze, isAnalyzing,
               alignItems: 'center',
               justifyContent: 'center',
               gap: '10px',
-              borderRadius: '12px',
+              borderRadius: 'var(--r-md)',
               border: 'none',
               fontSize: '16px',
               fontWeight: 700,
+              letterSpacing: '-0.01em',
               fontFamily: 'inherit',
-              transition: 'opacity 0.15s',
+              boxShadow: hasText && !isAnalyzing ? 'var(--shadow-brand)' : 'none',
+              transition: 'opacity 0.15s, transform 0.15s, box-shadow 0.15s',
             }}
             className="min-h-[52px] px-4"
+            onMouseEnter={e => { if (hasText && !isAnalyzing) e.currentTarget.style.transform = 'translateY(-1px)' }}
+            onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)' }}
           >
             {isAnalyzing ? <SpinnerBadge /> : <BoltBadge />}
             {isAnalyzing ? (loadingMessage || 'Analyzing...') : 'Analyze'}

@@ -31,9 +31,9 @@ const pillBase: React.CSSProperties = {
 
 const pillActive: React.CSSProperties = {
   ...pillBase,
-  border: '1.5px solid #ea580c',
-  background: '#fff7ed',
-  color: '#ea580c',
+  border: '1.5px solid #dc2626',
+  background: 'rgba(220,38,38,0.06)',
+  color: '#b91c1c',
   fontWeight: 600,
 }
 
@@ -109,30 +109,31 @@ export default function WhenToSendTab() {
       <div className="max-w-2xl mx-auto w-full">
         {/* Header — hidden once results are showing */}
         {!result && (
-          <div
-            className="text-center mb-8"
-            style={{
-              background: 'rgba(255,249,246,0.92)',
-              borderRadius: '16px',
-              padding: '20px 16px 12px',
-              backdropFilter: 'blur(4px)',
-              WebkitBackdropFilter: 'blur(4px)',
-            }}
-          >
+          <div className="text-center mb-8 flex flex-col items-center">
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: '6px',
+              fontSize: '12px', fontWeight: 600, letterSpacing: '0.04em',
+              color: 'var(--brand-deep)', background: 'rgba(220,38,38,0.07)',
+              border: '1px solid rgba(220,38,38,0.14)', borderRadius: '999px',
+              padding: '5px 12px', marginBottom: '18px', textTransform: 'uppercase',
+            }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Smart Send Timing
+            </span>
             <h1
-              className="text-center font-extrabold leading-tight tracking-tight mb-3"
+              className="text-center mb-3"
               style={{
-                fontSize: 'clamp(1.75rem, 6vw, 3rem)',
-                background: 'linear-gradient(to right, #dc2626 0%, #c2410c 35%, #ea580c 60%, #f97316 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                WebkitTextStroke: '1.5px rgba(0,0,0,0.55)',
+                fontSize: 'clamp(1.9rem, 6vw, 3.15rem)',
+                fontWeight: 800,
+                lineHeight: 1.08,
+                letterSpacing: '-0.03em',
+                color: 'var(--ink)',
+                maxWidth: '15ch',
               }}
             >
-              Send It At The Right Moment
+              Send it at the right <span style={{ color: 'var(--brand)' }}>moment</span>
             </h1>
-            <p className="text-center px-2" style={{ color: '#6b7280', fontSize: '15px', fontWeight: 400 }}>
+            <p className="text-center px-2" style={{ color: 'var(--ink-soft)', fontSize: '16px', fontWeight: 400, lineHeight: 1.55, maxWidth: '40ch' }}>
               Tell Ephpha who you're emailing and get a precise send window — no guesswork.
             </p>
           </div>
@@ -151,10 +152,10 @@ export default function WhenToSendTab() {
               {/* Best window */}
               <div style={{ marginBottom: '20px' }}>
                 <div style={{ fontSize: '32px', marginBottom: '8px' }}>🕐</div>
-                <div style={{ fontSize: '28px', fontWeight: 800, color: '#ea580c', lineHeight: 1.2 }}>
+                <div style={{ fontSize: '28px', fontWeight: 800, color: 'var(--brand)', lineHeight: 1.2, letterSpacing: '-0.02em' }}>
                   {result.bestDays}
                 </div>
-                <div style={{ fontSize: '28px', fontWeight: 800, color: '#ea580c', lineHeight: 1.2 }}>
+                <div style={{ fontSize: '28px', fontWeight: 800, color: 'var(--brand)', lineHeight: 1.2, letterSpacing: '-0.02em' }}>
                   {result.bestTimeWindow}
                 </div>
                 <div style={{ fontSize: '12px', color: '#9ca3af', marginTop: '4px' }}>
@@ -329,20 +330,24 @@ export default function WhenToSendTab() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 gap: '8px',
-                borderRadius: '12px',
+                borderRadius: 'var(--r-md)',
                 border: 'none',
                 height: '52px',
                 fontSize: '16px',
                 fontWeight: 700,
+                letterSpacing: '-0.01em',
                 fontFamily: 'inherit',
                 cursor: btnDisabled ? 'not-allowed' : 'pointer',
                 backgroundColor: '#dc2626',
                 color: 'white',
                 opacity: btnDisabled ? 0.6 : 1,
-                transition: 'opacity 0.15s',
+                boxShadow: btnDisabled ? 'none' : 'var(--shadow-brand)',
+                transition: 'opacity 0.15s, transform 0.15s, box-shadow 0.15s',
                 overflow: 'hidden',
                 whiteSpace: 'nowrap',
               }}
+              onMouseEnter={e => { if (!btnDisabled) e.currentTarget.style.transform = 'translateY(-1px)' }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)' }}
             >
               {isLoading ? (
                 <>
