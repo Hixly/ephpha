@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+dev-dist/
+
+# Local env
+.env
+.env.local
+.env.*.local
+
+# Editor / OS
+.DS_Store
+*.local
+.claude/
+
+# Logs
+*.log
+npm-debug.log*
