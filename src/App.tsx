@@ -7,6 +7,7 @@ import History from './components/History'
 import Footer from './components/Footer'
 import ProSignup from './components/ProSignup'
 import ExtensionPromo from './components/ExtensionPromo'
+import AddToHomeScreen from './components/AddToHomeScreen'
 import InstallPrompt from './components/InstallPrompt'
 import EmailWriter from './components/EmailWriter'
 import ImproveTab from './components/ImproveTab'
@@ -214,6 +215,7 @@ export default function App() {
         <InstallPrompt />
         <ProSignup />
         <ExtensionPromo />
+        <AddToHomeScreen />
         <Footer />
       </div>
 
